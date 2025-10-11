@@ -70,10 +70,10 @@ check_components! {
 check_components! {
     <'de> CanUseAppDerializer for App {
         ValueDeserializerComponent: [
-            (&'de (), u64),
-            (&'de (), String),
-            (&'de (), Vec<u8>),
-            (&'de (), Payload),
+            (Life<'de>, u64),
+            (Life<'de>, String),
+            (Life<'de>, Vec<u8>),
+            (Life<'de>, Payload),
         ]
     }
 }

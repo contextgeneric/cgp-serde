@@ -67,7 +67,7 @@ delegate_components! {
 check_components! {
     <'a> CanUseApp for App<'a> {
         ArenaGetterComponent:
-            (&'a (), Coord),
+            (Life<'a>, Coord),
 
     }
 }
@@ -75,10 +75,10 @@ check_components! {
 check_components! {
     <'de, 'a> CanDeserializeApp for App<'a> {
         ValueDeserializerComponent: [
-            (&'de (), u64),
-            (&'de (), Coord),
-            (&'de (), &'a Coord),
-            (&'de (), Payload<'a>),
+            (Life<'de>, u64),
+            (Life<'de>, Coord),
+            (Life<'de>, &'a Coord),
+            (Life<'de>, Payload<'a>),
         ]
     }
 }
