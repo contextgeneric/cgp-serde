@@ -4,7 +4,7 @@ use cgp::prelude::*;
 use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};
 use cgp_serde::components::ValueDeserializerComponent;
 use cgp_serde::providers::{DeserializeExtend, DeserializeRecordFields, UseSerde};
-use cgp_serde_alloc::providers::DeserailizeAndAllocate;
+use cgp_serde_alloc::providers::DeserializeAndAllocate;
 use cgp_serde_alloc::traits::AllocatorComponent;
 use cgp_serde_json::code::{DeserializeJson, SerializeJson};
 use cgp_serde_json::{DeserializeFromJsonString, SerializeToJsonString};
@@ -47,7 +47,7 @@ delegate_components! {
                 Coord:
                     DeserializeRecordFields,
                 <'a> &'a Coord:
-                    DeserailizeAndAllocate,
+                    DeserializeAndAllocate,
                 <'a> Vec<&'a Coord>:
                     DeserializeExtend,
                 <'a> Payload<'a>:

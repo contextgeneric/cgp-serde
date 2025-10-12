@@ -4,7 +4,7 @@ use cgp_serde::components::{CanDeserializeValue, ValueDeserializer, ValueDeseria
 use crate::traits::CanAlloc;
 
 #[cgp_new_provider]
-impl<'de, 'a, Context, Value> ValueDeserializer<'de, Context, &'a Value> for DeserailizeAndAllocate
+impl<'de, 'a, Context, Value> ValueDeserializer<'de, Context, &'a Value> for DeserializeAndAllocate
 where
     Context: CanAlloc<'a, Value> + CanDeserializeValue<'de, Value>,
 {

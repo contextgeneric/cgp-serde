@@ -42,5 +42,5 @@ cgp-serde-json          = { path = "./crates/cgp-serde-json" }
 cgp-serde-alloc         = { path = "./crates/cgp-serde-alloc" }
 cgp-serde-typed-arena   = { path = "./crates/cgp-serde-typed-arena" }
 
-cgp                         = { git = "https://github.com/contextgeneric/cgp.git", branch = "v0.5.0-release" }
-cgp-error-anyhow            = { git = "https://github.com/contextgeneric/cgp.git", branch = "v0.5.0-release" }
+# cgp                         = { git = "https://github.com/contextgeneric/cgp.git" }
+# cgp-error-anyhow            = { git = "https://github.com/contextgeneric/cgp.git" }
