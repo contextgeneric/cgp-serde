@@ -27,11 +27,10 @@ pub struct MessagesArchive {
     pub messages_by_topics: Vec<MessagesByTopic>,
 }
 
-#[cgp_context]
 pub struct AppA;
 
 delegate_components! {
-    AppAComponents {
+    AppA {
         ValueSerializerComponent:
             UseDelegate<new SerializerComponentsA {
                 <'a, T> &'a T:
@@ -74,11 +73,10 @@ check_components! {
     }
 }
 
-#[cgp_context]
 pub struct AppB;
 
 delegate_components! {
-    AppBComponents {
+    AppB {
         ValueSerializerComponent:
             UseDelegate<new SerializerComponentsB {
                 <'a, T> &'a T:

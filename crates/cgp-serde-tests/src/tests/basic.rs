@@ -15,11 +15,10 @@ pub struct Payload {
     pub data: Vec<u8>,
 }
 
-#[cgp_context]
 pub struct App;
 
 delegate_components! {
-    AppComponents {
+    App {
         ErrorTypeProviderComponent:
             UseAnyhowError,
         ErrorRaiserComponent:

@@ -25,14 +25,13 @@ pub struct Payload<'a> {
     pub coords: Vec<&'a Coord>,
 }
 
-#[cgp_context]
 #[derive(HasField)]
 pub struct App<'a> {
     pub arena: &'a Arena<Coord>,
 }
 
 delegate_components! {
-    AppComponents {
+    <'a> App<'a> {
         ErrorTypeProviderComponent:
             UseAnyhowError,
         ErrorRaiserComponent:

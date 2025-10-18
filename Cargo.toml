@@ -35,5 +35,6 @@ cgp-serde-json          = { version = "0.1.0-beta", path = "./crates/cgp-serde-j
 cgp-serde-alloc         = { version = "0.1.0-beta", path = "./crates/cgp-serde-alloc" }
 cgp-serde-typed-arena   = { version = "0.1.0-beta", path = "./crates/cgp-serde-typed-arena" }
 
-# cgp                         = { git = "https://github.com/contextgeneric/cgp.git" }
-# cgp-error-anyhow            = { git = "https://github.com/contextgeneric/cgp.git" }
+[patch.crates-io]
+cgp                         = { git = "https://github.com/contextgeneric/cgp.git" }
+cgp-error-anyhow            = { git = "https://github.com/contextgeneric/cgp.git" }
