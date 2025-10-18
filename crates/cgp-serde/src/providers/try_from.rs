@@ -11,8 +11,8 @@ use crate::components::{
 
 pub struct TrySerializeFrom<Target>(pub PhantomData<Target>);
 
-#[cgp_provider]
-impl<Context, Value, Target> ValueSerializer<Context, Value> for TrySerializeFrom<Target>
+#[cgp_impl(TrySerializeFrom<Target>)]
+impl<Context, Value, Target> ValueSerializer<Value> for Context
 where
     Value: Clone + TryInto<Target, Error: Display>,
     Context: CanSerializeValue<Target>,
@@ -26,8 +26,8 @@ where
     }
 }
 
-#[cgp_provider]
-impl<'a, Context, Value, Source> ValueDeserializer<'a, Context, Value> for TrySerializeFrom<Source>
+#[cgp_impl(TrySerializeFrom<Source>)]
+impl<'a, Context, Value, Source> ValueDeserializer<'a, Value> for Context
 where
     Context: CanDeserializeValue<'a, Source>,
     Source: TryInto<Value, Error: Display>,

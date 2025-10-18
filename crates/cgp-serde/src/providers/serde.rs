@@ -7,8 +7,8 @@ use crate::components::{
 
 pub struct UseSerde;
 
-#[cgp_provider]
-impl<Context, Value> ValueSerializer<Context, Value> for UseSerde
+#[cgp_impl(UseSerde)]
+impl<Context, Value> ValueSerializer<Value> for Context
 where
     Value: SerdeSerialize,
 {
@@ -20,8 +20,8 @@ where
     }
 }
 
-#[cgp_provider]
-impl<'a, Context, Value> ValueDeserializer<'a, Context, Value> for UseSerde
+#[cgp_impl(UseSerde)]
+impl<'a, Context, Value> ValueDeserializer<'a, Value> for Context
 where
     Value: SerdeDeserialize<'a>,
 {

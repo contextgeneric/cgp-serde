@@ -6,8 +6,8 @@ use crate::types::SerializeWithContext;
 
 pub struct SerializeIterator;
 
-#[cgp_provider]
-impl<Context, Value> ValueSerializer<Context, Value> for SerializeIterator
+#[cgp_impl(SerializeIterator)]
+impl<Context, Value> ValueSerializer<Value> for Context
 where
     for<'a> &'a Value: IntoIterator,
     Context: for<'a> CanSerializeValue<<&'a Value as IntoIterator>::Item>,

@@ -11,8 +11,8 @@ use serde::de::Error;
 
 pub struct SerializeBase64;
 
-#[cgp_provider]
-impl<Context, Value> ValueSerializer<Context, Value> for SerializeBase64
+#[cgp_impl(SerializeBase64)]
+impl<Context, Value> ValueSerializer<Value> for Context
 where
     Value: AsRef<[u8]>,
     Context: CanSerializeValue<String>,
@@ -26,8 +26,8 @@ where
     }
 }
 
-#[cgp_provider]
-impl<'de, Context> ValueDeserializer<'de, Context, Vec<u8>> for SerializeBase64
+#[cgp_impl(SerializeBase64)]
+impl<'de, Context> ValueDeserializer<'de, Vec<u8>> for Context
 where
     Context: CanDeserializeValue<'de, String>,
 {

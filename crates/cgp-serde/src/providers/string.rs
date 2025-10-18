@@ -10,8 +10,8 @@ use crate::components::{
 
 pub struct SerializeString;
 
-#[cgp_provider]
-impl<Context, Value> ValueSerializer<Context, Value> for SerializeString
+#[cgp_impl(SerializeString)]
+impl<Context, Value> ValueSerializer<Value> for Context
 where
     Value: AsRef<str>,
 {
@@ -23,13 +23,13 @@ where
     }
 }
 
-#[cgp_provider]
-impl<'a, Context> ValueDeserializer<'a, Context, String> for SerializeString {
+#[cgp_impl(SerializeString)]
+impl<'a, Context> ValueDeserializer<'a, String> for Context {
     fn deserialize<D>(_context: &Context, deserializer: D) -> Result<String, D::Error>
     where
         D: serde::Deserializer<'a>,
     {
-        deserializer.deserialize_string(Self)
+        deserializer.deserialize_string(SerializeString)
     }
 }
 

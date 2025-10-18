@@ -7,8 +7,8 @@ use crate::components::{
 
 pub struct SerializeFrom<Target>(pub PhantomData<Target>);
 
-#[cgp_provider]
-impl<Context, Value, Target> ValueSerializer<Context, Value> for SerializeFrom<Target>
+#[cgp_impl(SerializeFrom<Target>)]
+impl<Context, Value, Target> ValueSerializer<Value> for Context
 where
     Value: Clone + Into<Target>,
     Context: CanSerializeValue<Target>,
@@ -22,8 +22,8 @@ where
     }
 }
 
-#[cgp_provider]
-impl<'a, Context, Value, Source> ValueDeserializer<'a, Context, Value> for SerializeFrom<Source>
+#[cgp_impl(SerializeFrom<Source>)]
+impl<'a, Context, Value, Source> ValueDeserializer<'a, Value> for Context
 where
     Context: CanDeserializeValue<'a, Source>,
     Source: Into<Value>,

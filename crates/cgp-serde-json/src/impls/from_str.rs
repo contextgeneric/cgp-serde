@@ -7,9 +7,8 @@ pub struct DeserializeFromJsonString<InDeserializer = DeserializeFromJsonReader>
     pub PhantomData<InDeserializer>,
 );
 
-#[cgp_provider]
-impl<'a, Context, Code, Value, S, InDeserializer> TryComputer<Context, Code, &'a S>
-    for DeserializeFromJsonString<InDeserializer>
+#[cgp_impl(DeserializeFromJsonString<InDeserializer>)]
+impl<'a, Context, Code, Value, S, InDeserializer> TryComputer<Code, &'a S> for Context
 where
     Context: HasErrorType,
     InDeserializer: TryComputer<Context, Code, StrRead<'a>, Output = Value>,

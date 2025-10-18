@@ -10,9 +10,8 @@ use crate::types::DeserializeWithContext;
 
 pub struct DeserializeRecordFields;
 
-#[cgp_provider]
-impl<'de, Context, Record, Builder> ValueDeserializer<'de, Context, Record>
-    for DeserializeRecordFields
+#[cgp_impl(DeserializeRecordFields)]
+impl<'de, Context, Record, Builder> ValueDeserializer<'de, Record> for Context
 where
     Record: HasOptionalBuilder<Builder = Builder> + HasFields,
     Record::Fields: HandleMapEntry<'de, Context, Builder>,

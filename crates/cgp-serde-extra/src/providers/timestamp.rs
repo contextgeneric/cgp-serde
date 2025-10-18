@@ -8,8 +8,8 @@ use serde::de::Error;
 
 pub struct SerializeTimestamp;
 
-#[cgp_provider]
-impl<Context> ValueSerializer<Context, DateTime<Utc>> for SerializeTimestamp
+#[cgp_impl(SerializeTimestamp)]
+impl<Context> ValueSerializer<DateTime<Utc>> for Context
 where
     Context: CanSerializeValue<i64>,
 {
@@ -25,8 +25,8 @@ where
     }
 }
 
-#[cgp_provider]
-impl<'de, Context> ValueDeserializer<'de, Context, DateTime<Utc>> for SerializeTimestamp
+#[cgp_impl(SerializeTimestamp)]
+impl<'de, Context> ValueDeserializer<'de, DateTime<Utc>> for Context
 where
     Context: CanDeserializeValue<'de, i64>,
 {

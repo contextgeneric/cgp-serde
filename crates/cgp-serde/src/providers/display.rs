@@ -25,8 +25,8 @@ where
     }
 }
 
-#[cgp_new_provider]
-impl<'a, Context, Value> ValueDeserializer<'a, Context, Value> for DeserializeWithFromStr
+#[cgp_impl(new DeserializeWithFromStr)]
+impl<'a, Context, Value> ValueDeserializer<'a, Value> for Context
 where
     Context: CanDeserializeValue<'a, &'a str>,
     Value: FromStr<Err: Display>,

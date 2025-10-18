@@ -11,8 +11,8 @@ use serde::de::Error;
 
 pub struct SerializeHex;
 
-#[cgp_provider]
-impl<Context, Value> ValueSerializer<Context, Value> for SerializeHex
+#[cgp_impl(SerializeHex)]
+impl<Context, Value> ValueSerializer<Value> for Context
 where
     Value: ToHex,
     Context: CanSerializeValue<String>,
@@ -26,8 +26,8 @@ where
     }
 }
 
-#[cgp_provider]
-impl<'de, Context, Value> ValueDeserializer<'de, Context, Value> for SerializeHex
+#[cgp_impl(SerializeHex)]
+impl<'de, Context, Value> ValueDeserializer<'de, Value> for Context
 where
     Context: CanDeserializeValue<'de, String>,
     Value: FromHex<Error: Display>,

@@ -5,8 +5,8 @@ use crate::components::{CanDeserializeValue, ValueDeserializer, ValueDeserialize
 
 pub struct DeserializeExtend;
 
-#[cgp_provider]
-impl<'de, Context, Value, Item> ValueDeserializer<'de, Context, Value> for DeserializeExtend
+#[cgp_impl(DeserializeExtend)]
+impl<'de, Context, Value, Item> ValueDeserializer<'de, Value> for Context
 where
     Value: Default + IntoIterator<Item = Item> + Extend<Item>,
     Context: CanDeserializeValue<'de, Item>,

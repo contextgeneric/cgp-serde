@@ -10,8 +10,8 @@ use serde::de::Error;
 
 pub struct SerializeRfc3339Date;
 
-#[cgp_provider]
-impl<Context> ValueSerializer<Context, DateTime<Utc>> for SerializeRfc3339Date
+#[cgp_impl(SerializeRfc3339Date)]
+impl<Context> ValueSerializer<DateTime<Utc>> for Context
 where
     Context: CanSerializeValue<String>,
 {
@@ -27,8 +27,8 @@ where
     }
 }
 
-#[cgp_provider]
-impl<'de, Context> ValueDeserializer<'de, Context, DateTime<Utc>> for SerializeRfc3339Date
+#[cgp_impl(SerializeRfc3339Date)]
+impl<'de, Context> ValueDeserializer<'de, DateTime<Utc>> for Context
 where
     Context: CanDeserializeValue<'de, String>,
 {
