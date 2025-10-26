@@ -12,7 +12,7 @@ where
     for<'a> &'a Value: IntoIterator,
     Context: for<'a> CanSerializeValue<<&'a Value as IntoIterator>::Item>,
 {
-    fn serialize<S>(context: &Context, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -20,7 +20,7 @@ where
         let mut serializer = serializer.serialize_seq(None)?;
         for item in items {
             serializer.serialize_element(&SerializeWithContext {
-                context,
+                context: self,
                 value: &item,
             })?
         }
