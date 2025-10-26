@@ -7,7 +7,7 @@ use cgp_serde_extra::providers::{
 };
 use chrono::{DateTime, TimeZone, Utc};
 
-#[derive(HasField, HasFields)]
+#[derive(CgpData)]
 pub struct EncryptedMessage {
     pub message_id: u64,
     pub author_id: u64,
@@ -15,13 +15,13 @@ pub struct EncryptedMessage {
     pub encrypted_data: Vec<u8>,
 }
 
-#[derive(HasField, HasFields)]
+#[derive(CgpData)]
 pub struct MessagesByTopic {
     pub encrypted_topic: Vec<u8>,
     pub messages: Vec<EncryptedMessage>,
 }
 
-#[derive(HasField, HasFields)]
+#[derive(CgpData)]
 pub struct MessagesArchive {
     pub decryption_key: Vec<u8>,
     pub messages_by_topics: Vec<MessagesByTopic>,
@@ -125,27 +125,29 @@ fn test_nested_serialization() {
     let archive = MessagesArchive {
         decryption_key: b"top-secret".into(),
         messages_by_topics: vec![MessagesByTopic {
-            encrypted_topic: b"secret-deals".into(),
+            encrypted_topic: b"All about CGP".into(),
             messages: vec![
                 EncryptedMessage {
                     message_id: 1,
-                    author_id: 1,
-                    date: Utc.with_ymd_and_hms(2025, 1, 1, 0, 0, 0).unwrap(),
-                    encrypted_data: b"buy 1 free 1".into(),
+                    author_id: 2,
+                    date: Utc.with_ymd_and_hms(2025, 11, 3, 14, 15, 0).unwrap(),
+                    encrypted_data: b"Hello from RustLab!".into(),
                 },
                 EncryptedMessage {
-                    message_id: 2,
+                    message_id: 4,
                     author_id: 8,
-                    date: Utc.with_ymd_and_hms(2025, 1, 1, 0, 0, 0).unwrap(),
-                    encrypted_data: b"sales start tomorrow".into(),
+                    date: Utc.with_ymd_and_hms(2025, 12, 19, 23, 45, 0).unwrap(),
+                    encrypted_data: b"One year anniversary!".into(),
                 },
             ],
         }],
     };
 
-    let serialized = serde_json::to_string(&SerializeWithContext::new(&AppA, &archive)).unwrap();
+    let serialized =
+        serde_json::to_string_pretty(&SerializeWithContext::new(&AppA, &archive)).unwrap();
     println!("serialized with A: {serialized}");
 
-    let serialized = serde_json::to_string(&SerializeWithContext::new(&AppB, &archive)).unwrap();
+    let serialized =
+        serde_json::to_string_pretty(&SerializeWithContext::new(&AppB, &archive)).unwrap();
     println!("serialized with B: {serialized}");
 }
