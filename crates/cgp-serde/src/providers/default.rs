@@ -3,9 +3,8 @@ use serde::de::Visitor;
 
 use crate::components::{ValueDeserializer, ValueDeserializerComponent};
 
-#[cgp_new_provider]
-impl<'a, Context, Value, Provider> ValueDeserializer<'a, Context, Value>
-    for DeserializeDefault<Provider>
+#[cgp_impl(new DeserializeDefault<Provider>)]
+impl<'a, Context, Value, Provider> ValueDeserializer<'a, Value> for Context
 where
     Value: Default,
     Provider: ValueDeserializer<'a, Context, Value>,

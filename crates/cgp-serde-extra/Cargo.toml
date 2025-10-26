@@ -7,7 +7,7 @@ repository   = { workspace = true }
 authors      = { workspace = true }
 rust-version = { workspace = true }
 keywords     = { workspace = true }
-description  = "CGP-enabled serde implementation"
+description  = "Extra providers for Serde serialization of bytes and dates"
 
 [dependencies]
 cgp         = { workspace = true }

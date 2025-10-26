@@ -5,9 +5,8 @@ use serde_json::{Deserializer, Error};
 
 use crate::code::DeserializeJson;
 
-#[cgp_new_provider]
-impl<Context, Value, R, 'de> TryComputer<Context, DeserializeJson<Value>, R>
-    for DeserializeFromJsonReader
+#[cgp_impl(new DeserializeFromJsonReader)]
+impl<Context, Value, R, 'de> TryComputer<DeserializeJson<Value>, R> for Context
 where
     R: Read<'de>,
     Context: CanDeserializeValue<'de, Value> + CanRaiseError<Error>,

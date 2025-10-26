@@ -4,9 +4,7 @@ use serde::ser::SerializeSeq;
 use crate::components::{CanSerializeValue, ValueSerializer, ValueSerializerComponent};
 use crate::types::SerializeWithContext;
 
-pub struct SerializeIterator;
-
-#[cgp_impl(SerializeIterator)]
+#[cgp_impl(new SerializeIterator)]
 impl<Context, Value> ValueSerializer<Value> for Context
 where
     for<'a> &'a Value: IntoIterator,

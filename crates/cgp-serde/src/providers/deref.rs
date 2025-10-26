@@ -4,8 +4,8 @@ use cgp::prelude::*;
 
 use crate::components::{CanSerializeValue, ValueSerializer, ValueSerializerComponent};
 
-#[cgp_new_provider]
-impl<Context, Value> ValueSerializer<Context, Value> for SerializeDeref
+#[cgp_impl(new SerializeDeref)]
+impl<Context, Value> ValueSerializer<Value> for Context
 where
     Value: Deref,
     Context: CanSerializeValue<Value::Target>,

@@ -12,7 +12,7 @@ impl<Context, Value> ValueSerializer<Value> for Context
 where
     Value: SerdeSerialize,
 {
-    fn serialize<S>(_context: &Context, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -25,7 +25,7 @@ impl<'a, Context, Value> ValueDeserializer<'a, Value> for Context
 where
     Value: SerdeDeserialize<'a>,
 {
-    fn deserialize<D>(_context: &Context, deserializer: D) -> Result<Value, D::Error>
+    fn deserialize<D>(&self, deserializer: D) -> Result<Value, D::Error>
     where
         D: serde::Deserializer<'a>,
     {

@@ -5,8 +5,8 @@ use serde::ser::SerializeMap;
 use crate::components::{CanSerializeValue, ValueSerializer, ValueSerializerComponent};
 use crate::types::SerializeWithContext;
 
-#[cgp_new_provider]
-impl<Context, Value> ValueSerializer<Context, Value> for SerializeFields
+#[cgp_impl(new SerializeFields)]
+impl<Context, Value> ValueSerializer<Value> for Context
 where
     Value: HasFields,
     Value::Fields: FieldsSerializer<Context, Value>,

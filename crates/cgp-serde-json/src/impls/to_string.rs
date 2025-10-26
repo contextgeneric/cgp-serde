@@ -5,8 +5,8 @@ use cgp_serde::components::CanSerializeValue;
 use cgp_serde::types::SerializeWithContext;
 use serde_json::Error;
 
-#[cgp_new_provider]
-impl<Context, Code, Value> TryComputer<Context, Code, &Value> for SerializeToJsonString
+#[cgp_impl(new SerializeToJsonString)]
+impl<Context, Code, Value> TryComputer<Code, &Value> for Context
 where
     Context: CanSerializeValue<Value> + CanRaiseError<Error>,
 {

@@ -3,6 +3,7 @@ use core::fmt::Display;
 use core::str::FromStr;
 
 use cgp::prelude::*;
+use serde::Serializer;
 use serde::de::Error;
 
 use crate::components::{
@@ -10,18 +11,18 @@ use crate::components::{
     ValueSerializer, ValueSerializerComponent,
 };
 
-#[cgp_new_provider]
-impl<Context, Value> ValueSerializer<Context, Value> for SerializeWithDisplay
+#[cgp_impl(new SerializeWithDisplay)]
+impl<Context, Value> ValueSerializer<Value> for Context
 where
     Context: CanSerializeValue<String>,
     Value: Display,
 {
-    fn serialize<S>(context: &Context, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
     where
-        S: serde::Serializer,
+        S: Serializer,
     {
         let str_value = value.to_string();
-        context.serialize(&str_value, serializer)
+        self.serialize(&str_value, serializer)
     }
 }
 
