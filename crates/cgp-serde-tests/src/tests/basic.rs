@@ -6,7 +6,7 @@ use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent
 use cgp_serde::providers::{DeserializeRecordFields, SerializeFields, SerializeString, UseSerde};
 use cgp_serde_extra::providers::SerializeHex;
 use cgp_serde_json::code::{DeserializeJson, SerializeJson};
-use cgp_serde_json::{DeserializeFromJsonString, SerializeToJsonString};
+use cgp_serde_json::providers::{DeserializeFromJsonString, SerializeToJsonString};
 
 #[derive(Debug, Eq, PartialEq, CgpData)]
 pub struct Payload {

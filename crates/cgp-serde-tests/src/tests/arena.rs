@@ -1,5 +1,4 @@
 use cgp::core::error::{ErrorRaiserComponent, ErrorTypeProviderComponent};
-use cgp::extra::handler::CanTryCompute;
 use cgp::prelude::*;
 use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};
 use cgp_serde::components::ValueDeserializerComponent;
@@ -7,7 +6,8 @@ use cgp_serde::providers::{DeserializeExtend, DeserializeRecordFields, UseSerde}
 use cgp_serde_alloc::providers::DeserializeAndAllocate;
 use cgp_serde_alloc::traits::AllocatorComponent;
 use cgp_serde_json::code::{DeserializeJson, SerializeJson};
-use cgp_serde_json::{DeserializeFromJsonString, SerializeToJsonString};
+use cgp_serde_json::impls::CanDeserializeJsonString;
+use cgp_serde_json::providers::{DeserializeFromJsonString, SerializeToJsonString};
 use cgp_serde_typed_arena::providers::AllocateWithArena;
 use cgp_serde_typed_arena::traits::ArenaGetterComponent;
 use typed_arena::Arena;
@@ -43,14 +43,15 @@ delegate_components! {
         ValueDeserializerComponent:
             UseDelegate<new DeserializeComponents {
                 u64: UseSerde,
-                Coord:
+                [
+                    Coord,
+                    <'a> Payload<'a>,
+                ]:
                     DeserializeRecordFields,
                 <'a> &'a Coord:
                     DeserializeAndAllocate,
                 <'a> Vec<&'a Coord>:
                     DeserializeExtend,
-                <'a> Payload<'a>:
-                    DeserializeRecordFields,
 
             }>,
         TryComputerComponent:
@@ -97,9 +98,8 @@ fn test_deserialize_with_arena() {
     let arena = Arena::new();
     let app = App { arena: &arena };
 
-    let deserialized: Payload<'_> = app
-        .try_compute(PhantomData::<DeserializeJson<Payload<'_>>>, &serialized)
-        .unwrap();
+    let deserialized: Payload<'_> = app.deserialize_json_string(&serialized).unwrap();
+
     assert_eq!(
         deserialized,
         Payload {
