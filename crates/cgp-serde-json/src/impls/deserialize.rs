@@ -14,6 +14,6 @@ where
         for<'a> TryComputer<Context, DeserializeJson<T>, &'a str, Output = T>,
 {
     fn deserialize_json_string(&self, serialized: &str) -> Result<T, Self::Error> {
-        <DeserializeFromJsonString>::try_compute(self, PhantomData, &serialized)
+        <DeserializeFromJsonString>::try_compute(self, PhantomData, serialized)
     }
 }
