@@ -257,7 +257,7 @@ dependencies = [
 
 [[package]]
 name = "cgp-serde"
-version = "0.1.0-beta"
+version = "0.1.0-beta2"
 dependencies = [
  "cgp",
  "serde",
@@ -265,7 +265,7 @@ dependencies = [
 
 [[package]]
 name = "cgp-serde-alloc"
-version = "0.1.0-beta"
+version = "0.1.0-beta2"
 dependencies = [
  "cgp",
  "cgp-serde",
@@ -274,7 +274,7 @@ dependencies = [
 
 [[package]]
 name = "cgp-serde-extra"
-version = "0.1.0-beta"
+version = "0.1.0-beta2"
 dependencies = [
  "base64",
  "cgp",
@@ -286,7 +286,7 @@ dependencies = [
 
 [[package]]
 name = "cgp-serde-json"
-version = "0.1.0-beta"
+version = "0.1.0-beta2"
 dependencies = [
  "cgp",
  "cgp-serde",
@@ -296,7 +296,7 @@ dependencies = [
 
 [[package]]
 name = "cgp-serde-tests"
-version = "0.1.0-beta"
+version = "0.1.0-beta2"
 dependencies = [
  "base64",
  "cgp",
@@ -315,7 +315,7 @@ dependencies = [
 
 [[package]]
 name = "cgp-serde-typed-arena"
-version = "0.1.0-beta"
+version = "0.1.0-beta2"
 dependencies = [
  "cgp",
  "cgp-serde",
