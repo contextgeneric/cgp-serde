@@ -12,10 +12,8 @@ pub trait HasArena<'a, T: 'a> {
 }
 
 #[cgp_impl(new DeserializeAndAllocate)]
-impl<'de, 'a, Context, Value> ValueDeserializer<'de, &'a Value> for Context
-where
-    Context: HasArena<'a, Value> + CanDeserializeValue<'de, Value>,
-{
+#[uses(HasArena<'a, Value>, CanDeserializeValue<'de, Value>)]
+impl<'de, 'a, Value> ValueDeserializer<'de, &'a Value> {
     fn deserialize<D>(&self, deserializer: D) -> Result<&'a Value, D::Error>
     where
         D: serde::Deserializer<'de>,

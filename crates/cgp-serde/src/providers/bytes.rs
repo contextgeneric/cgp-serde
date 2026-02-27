@@ -10,7 +10,7 @@ use crate::components::{
 pub struct SerializeBytes;
 
 #[cgp_impl(SerializeBytes)]
-impl<Context, Value> ValueSerializer<Value> for Context
+impl<Value> ValueSerializer<Value>
 where
     Value: AsRef<[u8]>,
 {
@@ -23,7 +23,7 @@ where
 }
 
 #[cgp_impl(SerializeBytes)]
-impl<'a, Context, Value> ValueDeserializer<'a, Value> for Context
+impl<'a, Value> ValueDeserializer<'a, Value>
 where
     Value: From<&'a [u8]>,
 {
@@ -37,11 +37,11 @@ where
 }
 
 #[cgp_impl(new TryDeserializeBytes)]
-impl<'a, Context, Value> ValueDeserializer<'a, Value> for Context
+impl<'a, Value> ValueDeserializer<'a, Value>
 where
     Value: TryFrom<&'a [u8], Error: Display>,
 {
-    fn deserialize<D>(_context: &Context, deserializer: D) -> Result<Value, D::Error>
+    fn deserialize<D>(&self, deserializer: D) -> Result<Value, D::Error>
     where
         D: serde::Deserializer<'a>,
     {

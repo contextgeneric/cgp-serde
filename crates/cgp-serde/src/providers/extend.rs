@@ -6,17 +6,17 @@ use crate::components::{CanDeserializeValue, ValueDeserializer, ValueDeserialize
 pub struct DeserializeExtend;
 
 #[cgp_impl(DeserializeExtend)]
-impl<'de, Context, Value, Item> ValueDeserializer<'de, Value> for Context
+#[uses(CanDeserializeValue<'de, Item>)]
+impl<'de, Value, Item> ValueDeserializer<'de, Value>
 where
     Value: Default + IntoIterator<Item = Item> + Extend<Item>,
-    Context: CanDeserializeValue<'de, Item>,
 {
-    fn deserialize<D>(context: &Context, deserializer: D) -> Result<Value, D::Error>
+    fn deserialize<D>(&self, deserializer: D) -> Result<Value, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_seq(DeserializeExtendVisitor {
-            context,
+            context: self,
             phantom: PhantomData,
         })
     }

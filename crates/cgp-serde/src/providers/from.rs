@@ -8,31 +8,31 @@ use crate::components::{
 pub struct SerializeFrom<Target>(pub PhantomData<Target>);
 
 #[cgp_impl(SerializeFrom<Target>)]
-impl<Context, Value, Target> ValueSerializer<Value> for Context
+#[uses(CanSerializeValue<Target>)]
+impl<Value, Target> ValueSerializer<Value>
 where
     Value: Clone + Into<Target>,
-    Context: CanSerializeValue<Target>,
 {
-    fn serialize<S>(context: &Context, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         let target = value.clone().into();
-        context.serialize(&target, serializer)
+        self.serialize(&target, serializer)
     }
 }
 
 #[cgp_impl(SerializeFrom<Source>)]
-impl<'a, Context, Value, Source> ValueDeserializer<'a, Value> for Context
+#[uses(CanDeserializeValue<'a, Source>)]
+impl<'a, Value, Source> ValueDeserializer<'a, Value>
 where
-    Context: CanDeserializeValue<'a, Source>,
     Source: Into<Value>,
 {
-    fn deserialize<D>(context: &Context, deserializer: D) -> Result<Value, D::Error>
+    fn deserialize<D>(&self, deserializer: D) -> Result<Value, D::Error>
     where
         D: serde::Deserializer<'a>,
     {
-        let target = context.deserialize(deserializer)?;
+        let target = self.deserialize(deserializer)?;
         Ok(target.into())
     }
 }

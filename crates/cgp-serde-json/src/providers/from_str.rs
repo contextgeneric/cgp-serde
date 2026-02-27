@@ -8,19 +8,15 @@ pub struct DeserializeFromJsonString<InDeserializer = DeserializeFromJsonReader>
 );
 
 #[cgp_impl(DeserializeFromJsonString<InDeserializer>)]
-impl<Context, Code, Value, S, InDeserializer> TryComputer<Code, S> for Context
+#[use_type(HasErrorType::Error)]
+impl<Code, Value, S, InDeserializer> TryComputer<Code, S>
 where
-    Context: HasErrorType,
-    InDeserializer: for<'a> TryComputer<Context, Code, StrRead<'a>, Output = Value>,
+    InDeserializer: for<'a> TryComputer<Self, Code, StrRead<'a>, Output = Value>,
     S: AsRef<str>,
 {
     type Output = Value;
 
-    fn try_compute(
-        context: &Context,
-        code: PhantomData<Code>,
-        source: S,
-    ) -> Result<Value, Context::Error> {
-        InDeserializer::try_compute(context, code, StrRead::new(source.as_ref()))
+    fn try_compute(&self, code: PhantomData<Code>, source: S) -> Result<Value, Error> {
+        InDeserializer::try_compute(self, code, StrRead::new(source.as_ref()))
     }
 }

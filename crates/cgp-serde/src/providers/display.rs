@@ -12,9 +12,9 @@ use crate::components::{
 };
 
 #[cgp_impl(new SerializeWithDisplay)]
-impl<Context, Value> ValueSerializer<Value> for Context
+#[uses(CanSerializeValue<String>)]
+impl<Value> ValueSerializer<Value>
 where
-    Context: CanSerializeValue<String>,
     Value: Display,
 {
     fn serialize<S>(&self, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
@@ -27,16 +27,16 @@ where
 }
 
 #[cgp_impl(new DeserializeWithFromStr)]
-impl<'a, Context, Value> ValueDeserializer<'a, Value> for Context
+#[uses(CanDeserializeValue<'a, &'a str>)]
+impl<'a, Value> ValueDeserializer<'a, Value>
 where
-    Context: CanDeserializeValue<'a, &'a str>,
     Value: FromStr<Err: Display>,
 {
-    fn deserialize<D>(context: &Context, deserializer: D) -> Result<Value, D::Error>
+    fn deserialize<D>(&self, deserializer: D) -> Result<Value, D::Error>
     where
         D: serde::Deserializer<'a>,
     {
-        let str_value = context.deserialize(deserializer)?;
+        let str_value = self.deserialize(deserializer)?;
         Value::from_str(str_value).map_err(D::Error::custom)
     }
 }

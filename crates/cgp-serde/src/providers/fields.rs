@@ -6,17 +6,17 @@ use crate::components::{CanSerializeValue, ValueSerializer, ValueSerializerCompo
 use crate::types::SerializeWithContext;
 
 #[cgp_impl(new SerializeFields)]
-impl<Context, Value> ValueSerializer<Value> for Context
+impl<Value> ValueSerializer<Value>
 where
     Value: HasFields,
-    Value::Fields: FieldsSerializer<Context, Value>,
+    Value::Fields: FieldsSerializer<Self, Value>,
 {
-    fn serialize<S>(context: &Context, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         let s = serializer.serialize_map(None)?;
-        Value::Fields::serialize_fields(context, value, s)
+        Value::Fields::serialize_fields(self, value, s)
     }
 }
 

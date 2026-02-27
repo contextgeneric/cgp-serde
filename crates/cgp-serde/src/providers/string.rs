@@ -11,11 +11,11 @@ use crate::components::{
 pub struct SerializeString;
 
 #[cgp_impl(SerializeString)]
-impl<Context, Value> ValueSerializer<Value> for Context
+impl<Value> ValueSerializer<Value>
 where
     Value: AsRef<str>,
 {
-    fn serialize<S>(_context: &Context, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -24,8 +24,8 @@ where
 }
 
 #[cgp_impl(SerializeString)]
-impl<'a, Context> ValueDeserializer<'a, String> for Context {
-    fn deserialize<D>(_context: &Context, deserializer: D) -> Result<String, D::Error>
+impl<'a> ValueDeserializer<'a, String> {
+    fn deserialize<D>(&self, deserializer: D) -> Result<String, D::Error>
     where
         D: serde::Deserializer<'a>,
     {

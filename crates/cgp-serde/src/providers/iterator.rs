@@ -5,10 +5,10 @@ use crate::components::{CanSerializeValue, ValueSerializer, ValueSerializerCompo
 use crate::types::SerializeWithContext;
 
 #[cgp_impl(new SerializeIterator)]
-impl<Context, Value> ValueSerializer<Value> for Context
+impl<Value> ValueSerializer<Value>
 where
     for<'a> &'a Value: IntoIterator,
-    Context: for<'a> CanSerializeValue<<&'a Value as IntoIterator>::Item>,
+    Self: for<'a> CanSerializeValue<<&'a Value as IntoIterator>::Item>,
 {
     fn serialize<S>(&self, value: &Value, serializer: S) -> Result<S::Ok, S::Error>
     where

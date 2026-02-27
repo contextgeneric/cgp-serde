@@ -4,17 +4,17 @@ use serde::de::Visitor;
 use crate::components::{ValueDeserializer, ValueDeserializerComponent};
 
 #[cgp_impl(new DeserializeDefault<Provider>)]
-impl<'a, Context, Value, Provider> ValueDeserializer<'a, Value> for Context
+#[use_provider(Provider: ValueDeserializer<'a, Value>)]
+impl<'a, Value, Provider> ValueDeserializer<'a, Value>
 where
     Value: Default,
-    Provider: ValueDeserializer<'a, Context, Value>,
 {
-    fn deserialize<D>(context: &Context, deserializer: D) -> Result<Value, D::Error>
+    fn deserialize<D>(&self, deserializer: D) -> Result<Value, D::Error>
     where
         D: serde::Deserializer<'a>,
     {
         deserializer.deserialize_option(DefaultVisitor {
-            context,
+            context: self,
             phantom: PhantomData::<(Value, Provider)>,
         })
     }

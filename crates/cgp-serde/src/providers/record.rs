@@ -11,18 +11,18 @@ use crate::types::DeserializeWithContext;
 pub struct DeserializeRecordFields;
 
 #[cgp_impl(DeserializeRecordFields)]
-impl<'de, Context, Record, Builder> ValueDeserializer<'de, Record> for Context
+impl<'de, Record, Builder> ValueDeserializer<'de, Record>
 where
     Record: HasOptionalBuilder<Builder = Builder> + HasFields,
-    Record::Fields: HandleMapEntry<'de, Context, Builder>,
+    Record::Fields: HandleMapEntry<'de, Self, Builder>,
     Builder: FinalizeOptional<Target = Record>,
 {
-    fn deserialize<D>(context: &Context, deserializer: D) -> Result<Record, D::Error>
+    fn deserialize<D>(&self, deserializer: D) -> Result<Record, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_map(MapVisitor {
-            context,
+            context: self,
             phantom: PhantomData,
         })
     }
