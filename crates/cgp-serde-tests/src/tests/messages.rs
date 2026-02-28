@@ -60,7 +60,7 @@ delegate_components! {
 }
 
 check_components! {
-    CanUseAppA for AppA {
+    AppA {
         ValueSerializerComponent: [
             u64,
             String,
@@ -107,7 +107,7 @@ delegate_components! {
 }
 
 check_components! {
-    CanUseAppB for AppB {
+    AppB {
         ValueSerializerComponent: [
             u64,
             String,

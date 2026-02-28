@@ -56,7 +56,8 @@ delegate_components! {
 }
 
 check_components! {
-    CanUseAppSerializer for App {
+    #[check_trait(CanUseAppSerializer)]
+    App {
         ValueSerializerComponent: [
             u64,
             String,
@@ -67,7 +68,8 @@ check_components! {
 }
 
 check_components! {
-    <'de> CanUseAppDerializer for App {
+    #[check_trait(CanDeserializeApp)]
+    <'de> App {
         ValueDeserializerComponent: [
             (Life<'de>, u64),
             (Life<'de>, String),
