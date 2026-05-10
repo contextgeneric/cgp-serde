@@ -13,37 +13,12 @@ pub enum List<T> {
     Cons(T, Box<List<T>>),
 }
 
-pub struct ListIterator<'a, T> {
-    current: &'a List<T>,
-}
-
-impl<'a, T> Iterator for ListIterator<'a, T> {
-    type Item = &'a T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        match self.current {
-            List::Empty => None,
-            List::Cons(head, tail) => {
-                self.current = tail;
-                Some(head)
-            }
-        }
-    }
-}
-
-impl<'a, T> IntoIterator for &'a List<T> {
-    type Item = &'a T;
-    type IntoIter = ListIterator<'a, T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        ListIterator { current: self }
-    }
-}
-
 #[cgp_impl(new SerializeList)]
 impl<T> ValueSerializer<List<T>>
 where
     Self: for<'a> CanSerializeValue<&'a T>,
+    // Self: CanSerializeValue<List<T>>, // this can cause overflow
+    // Self: CanSerializeValue<Box<List<T>>>, // this can cause overflow
 {
     fn serialize<S>(&self, values: &List<T>, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -65,6 +40,35 @@ where
     }
 }
 
+// We can also use `SerializeIterator` to implement `CanSerializeValue<List<T>>`
+// if we implement `IntoIterator` for it.
+impl<'a, T> IntoIterator for &'a List<T> {
+    type Item = &'a T;
+    type IntoIter = ListIterator<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        ListIterator { current: self }
+    }
+}
+
+pub struct ListIterator<'a, T> {
+    current: &'a List<T>,
+}
+
+impl<'a, T> Iterator for ListIterator<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.current {
+            List::Empty => None,
+            List::Cons(head, tail) => {
+                self.current = tail;
+                Some(head)
+            }
+        }
+    }
+}
+
 pub struct App;
 
 delegate_components! {
@@ -77,6 +81,8 @@ delegate_components! {
             RaiseAnyhowError,
         @ValueSerializerComponent.u64:
             UseSerde,
+        <T> @ValueSerializerComponent.Box<T>:
+             SerializeDeref,
         <'a, T> @ValueSerializerComponent.&'a T:
              SerializeDeref,
         <T> @ValueSerializerComponent.List<T>:
