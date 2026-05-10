@@ -6,20 +6,19 @@ use cgp_serde::providers::{DeserializeExtend, DeserializeRecordFields, UseSerde}
 use cgp_serde_json::impls::CanDeserializeJsonString;
 use typed_arena::Arena;
 
-#[cgp_auto_getter]
-pub trait HasArena<'a, T: 'a> {
-    fn arena(&self) -> &&'a Arena<T>;
-}
-
 #[cgp_impl(new DeserializeAndAllocate)]
-#[uses(HasArena<'a, Value>, CanDeserializeValue<'de, Value>)]
+#[uses(CanDeserializeValue<'de, Value>)]
 impl<'de, 'a, Value> ValueDeserializer<'de, &'a Value> {
-    fn deserialize<D>(&self, deserializer: D) -> Result<&'a Value, D::Error>
+    fn deserialize<D>(
+        &self,
+        #[implicit] arena: &&'a Arena<Value>,
+        deserializer: D,
+    ) -> Result<&'a Value, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = self.deserialize(deserializer)?;
-        let value = self.arena().alloc(value);
+        let value = arena.alloc(value);
 
         Ok(value)
     }

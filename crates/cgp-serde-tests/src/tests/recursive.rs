@@ -2,7 +2,7 @@ use cgp::core::error::{ErrorRaiserComponent, ErrorTypeProviderComponent};
 use cgp::prelude::*;
 use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};
 use cgp_serde::components::{CanSerializeValue, ValueSerializer, ValueSerializerComponent};
-use cgp_serde::providers::{SerializeDeref, SerializeIterator, UseSerde};
+use cgp_serde::providers::{SerializeDeref, UseSerde};
 use cgp_serde::types::SerializeWithContext;
 use cgp_serde_json::code::SerializeJson;
 use cgp_serde_json::providers::SerializeToJsonString;
@@ -80,7 +80,8 @@ delegate_components! {
         <'a, T> @ValueSerializerComponent.&'a T:
              SerializeDeref,
         <T> @ValueSerializerComponent.List<T>:
-             SerializeIterator,
+            // We can also use `SerializeIterator` here,
+             SerializeList,
     }
 }
 
