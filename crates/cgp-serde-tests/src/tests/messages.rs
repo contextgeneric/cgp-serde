@@ -31,31 +31,36 @@ pub struct AppA;
 
 delegate_components! {
     AppA {
-        ValueSerializerComponent:
-            UseDelegate<new SerializerComponentsA {
-                <'a, T> &'a T:
-                    SerializeDeref,
-                [
-                    u64,
-                    String,
-                ]:
-                    UseSerde,
-                Vec<u8>:
-                    SerializeHex,
-                DateTime<Utc>:
-                    SerializeRfc3339Date,
-                [
-                    Vec<EncryptedMessage>,
-                    Vec<MessagesByTopic>,
-                ]:
-                    SerializeIterator,
-                [
-                    MessagesArchive,
-                    MessagesByTopic,
-                    EncryptedMessage,
-                ]:
-                    SerializeFields,
-            }>
+        open {ValueSerializerComponent};
+
+
+        @ValueSerializerComponent.<'a, T> &'a T:
+            SerializeDeref,
+
+        @ValueSerializerComponent.[
+            u64,
+            String,
+        ]:
+            UseSerde,
+
+        @ValueSerializerComponent.Vec<u8>:
+            SerializeHex,
+
+        @ValueSerializerComponent.DateTime<Utc>:
+            SerializeRfc3339Date,
+
+        @ValueSerializerComponent.[
+            Vec<EncryptedMessage>,
+            Vec<MessagesByTopic>,
+        ]:
+            SerializeIterator,
+
+        @ValueSerializerComponent.[
+            MessagesArchive,
+            MessagesByTopic,
+            EncryptedMessage,
+        ]:
+            SerializeFields,
     }
 }
 
@@ -77,32 +82,36 @@ pub struct AppB;
 
 delegate_components! {
     AppB {
-        ValueSerializerComponent:
-            UseDelegate<new SerializerComponentsB {
-                <'a, T> &'a T:
-                    SerializeDeref,
-                [
-                    i64,
-                    u64,
-                    String,
-                ]:
-                    UseSerde,
-                Vec<u8>:
-                    SerializeBase64,
-                DateTime<Utc>:
-                    SerializeTimestamp,
-                [
-                    Vec<EncryptedMessage>,
-                    Vec<MessagesByTopic>,
-                ]:
-                    SerializeIterator,
-                [
-                    MessagesArchive,
-                    MessagesByTopic,
-                    EncryptedMessage,
-                ]:
-                    SerializeFields,
-            }>
+        open {ValueSerializerComponent};
+
+        @ValueSerializerComponent.<'a, T> &'a T:
+            SerializeDeref,
+
+        @ValueSerializerComponent.[
+            i64,
+            u64,
+            String,
+        ]:
+            UseSerde,
+
+        @ValueSerializerComponent.Vec<u8>:
+            SerializeBase64,
+
+        @ValueSerializerComponent.DateTime<Utc>:
+            SerializeTimestamp,
+
+        @ValueSerializerComponent.[
+            Vec<EncryptedMessage>,
+            Vec<MessagesByTopic>,
+        ]:
+            SerializeIterator,
+
+        @ValueSerializerComponent.[
+            MessagesArchive,
+            MessagesByTopic,
+            EncryptedMessage,
+        ]:
+            SerializeFields,
     }
 }
 

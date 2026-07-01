@@ -32,6 +32,11 @@ pub struct App<'a> {
 
 delegate_components! {
     <'a> App<'a> {
+        open {
+            ValueDeserializerComponent,
+            TryComputerComponent,
+        };
+
         ErrorTypeProviderComponent:
             UseAnyhowError,
         ErrorRaiserComponent:
@@ -40,27 +45,26 @@ delegate_components! {
             UseField<Symbol!("arena")>,
         AllocatorComponent:
             AllocateWithArena,
-        ValueDeserializerComponent:
-            UseDelegate<new DeserializeComponents {
-                u64: UseSerde,
-                [
-                    Coord,
-                    <'a> Payload<'a>,
-                ]:
-                    DeserializeRecordFields,
-                <'a> &'a Coord:
-                    DeserializeAndAllocate,
-                <'a> Vec<&'a Coord>:
-                    DeserializeExtend,
 
-            }>,
-        TryComputerComponent:
-            UseDelegate<new JsonEncodingComponents {
-                SerializeJson:
-                    SerializeToJsonString,
-                <T> DeserializeJson<T>:
-                    DeserializeFromJsonString
-            }>,
+        @ValueDeserializerComponent.u64: UseSerde,
+
+        @ValueDeserializerComponent.[
+            Coord,
+            <'b> Payload<'b>,
+        ]:
+            DeserializeRecordFields,
+
+        @ValueDeserializerComponent.<'b> &'b Coord:
+            DeserializeAndAllocate,
+
+        @ValueDeserializerComponent.<'b> Vec<&'b Coord>:
+            DeserializeExtend,
+
+        @TryComputerComponent.SerializeJson:
+            SerializeToJsonString,
+
+        @TryComputerComponent.<T> DeserializeJson<T>:
+            DeserializeFromJsonString,
     }
 }
 

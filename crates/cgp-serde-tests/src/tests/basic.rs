@@ -19,39 +19,46 @@ pub struct App;
 
 delegate_components! {
     App {
+        open {
+            ValueSerializerComponent,
+            ValueDeserializerComponent,
+            TryComputerComponent,
+        };
+
         ErrorTypeProviderComponent:
             UseAnyhowError,
+
         ErrorRaiserComponent:
             RaiseAnyhowError,
-        ValueSerializerComponent:
-            UseDelegate<new SerializerComponents {
-                u64:
-                    UseSerde,
-                String:
-                    SerializeString,
-                Vec<u8>:
-                    SerializeHex,
-                Payload:
-                    SerializeFields,
-            }>,
-        ValueDeserializerComponent:
-            UseDelegate<new DeserializerComponents {
-                [
-                    u64,
-                    String,
-                ]:
-                    UseSerde,
-                Payload:
-                    DeserializeRecordFields,
-                Vec<u8>: SerializeHex,
-            }>,
-        TryComputerComponent:
-            UseDelegate<new JsonEncodingComponents {
-                SerializeJson:
-                    SerializeToJsonString,
-                <T> DeserializeJson<T>:
-                    DeserializeFromJsonString
-            }>,
+
+        @ValueSerializerComponent.u64:
+            UseSerde,
+
+        @ValueSerializerComponent.String:
+            SerializeString,
+
+        @ValueSerializerComponent.Vec<u8>:
+            SerializeHex,
+
+        @ValueSerializerComponent.Payload:
+            SerializeFields,
+
+        @ValueDeserializerComponent.[
+            u64,
+            String,
+        ]:
+            UseSerde,
+
+        @ValueDeserializerComponent.Payload:
+            DeserializeRecordFields,
+
+        @ValueDeserializerComponent.Vec<u8>: SerializeHex,
+
+        @TryComputerComponent.SerializeJson:
+            SerializeToJsonString,
+
+        @TryComputerComponent.<T> DeserializeJson<T>:
+            DeserializeFromJsonString,
     }
 }
 

@@ -45,20 +45,22 @@ pub struct App<'a> {
 
 delegate_components! {
     <'s> App<'s> {
-        ValueDeserializerComponent:
-            UseDelegate<new DeserializeComponents {
-                u64: UseSerde,
-                [
-                    Coord,
-                    <'a> Cluster<'a>,
-                ]:
-                    DeserializeRecordFields,
-                <'a> &'a Coord:
-                    DeserializeAndAllocate,
-                <'a> Vec<&'a Coord>:
-                    DeserializeExtend,
+        open {ValueDeserializerComponent};
 
-            }>,
+        @ValueDeserializerComponent.u64: UseSerde,
+
+        @ValueDeserializerComponent.[
+            Coord,
+            <'a> Cluster<'a>,
+        ]:
+            DeserializeRecordFields,
+
+        @ValueDeserializerComponent.<'a> &'a Coord:
+            DeserializeAndAllocate,
+
+        @ValueDeserializerComponent.<'a> Vec<&'a Coord>:
+            DeserializeExtend,
+
         ErrorTypeProviderComponent:
             UseAnyhowError,
         ErrorRaiserComponent:
