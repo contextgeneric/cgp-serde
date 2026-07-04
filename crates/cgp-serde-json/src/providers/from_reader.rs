@@ -6,7 +6,7 @@ use serde_json::de::Read;
 use crate::code::DeserializeJson;
 
 #[cgp_impl(new DeserializeFromJsonReader)]
-#[use_type(HasErrorType::Error)]
+#[use_type(HasErrorType.Error)]
 #[uses(CanDeserializeValue<'de, Value>, CanRaiseError<serde_json::Error>)]
 impl<Value, R, 'de> TryComputer<DeserializeJson<Value>, R>
 where

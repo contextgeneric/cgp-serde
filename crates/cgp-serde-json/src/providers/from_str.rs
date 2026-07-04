@@ -8,7 +8,7 @@ pub struct DeserializeFromJsonString<InDeserializer = DeserializeFromJsonReader>
 );
 
 #[cgp_impl(DeserializeFromJsonString<InDeserializer>)]
-#[use_type(HasErrorType::Error)]
+#[use_type(HasErrorType.Error)]
 impl<Code, Value, S, InDeserializer> TryComputer<Code, S>
 where
     InDeserializer: for<'a> TryComputer<Self, Code, StrRead<'a>, Output = Value>,

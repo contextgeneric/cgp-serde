@@ -5,7 +5,7 @@ use cgp_serde::components::CanSerializeValue;
 use cgp_serde::types::SerializeWithContext;
 
 #[cgp_impl(new SerializeToJsonString)]
-#[use_type(HasErrorType::Error)]
+#[use_type(HasErrorType.Error)]
 #[uses(CanSerializeValue<Value>, CanRaiseError<serde_json::Error>)]
 impl<Code, Value> TryComputer<Code, &Value> {
     type Output = String;
