@@ -4,7 +4,7 @@ use cgp_serde::components::{
 };
 use cgp_serde::providers::{
     DeserializeExtend, DeserializeRecordFields, DeserializeVariantFields, SerializeDeref,
-    SerializeIterator, SerializeRecordFields, SerializeVariantFields, UseSerde,
+    SerializeIterator, SerializeRecordFields, SerializeUnit, SerializeVariantFields, UseSerde,
 };
 use cgp_serde::types::{DeserializeWithContext, SerializeWithContext};
 use cgp_serde_extra::providers::{
@@ -40,7 +40,7 @@ pub enum ChatEvent {
     Posted(Posted),
     Edited(Edited),
     Reacted(Reacted),
-    HistoryCleared(()),
+    HistoryCleared,
 }
 
 #[derive(Debug, PartialEq, CgpData)]
@@ -61,8 +61,10 @@ delegate_components! {
 
         @ValueSerializerComponent.<'a, T> &'a T:
             SerializeDeref,
-        @ValueSerializerComponent.[i64, u64, String, ()]:
+        @ValueSerializerComponent.[i64, u64, String]:
             UseSerde,
+        @ValueSerializerComponent.Nil:
+            SerializeUnit,
         @ValueSerializerComponent.Vec<u8>:
             SerializeBase64,
         @ValueSerializerComponent.DateTime<Utc>:
@@ -74,8 +76,10 @@ delegate_components! {
         @ValueSerializerComponent.Vec<ChatEvent>:
             SerializeIterator,
 
-        @ValueDeserializerComponent.[i64, u64, String, ()]:
+        @ValueDeserializerComponent.[i64, u64, String]:
             UseSerde,
+        @ValueDeserializerComponent.Nil:
+            SerializeUnit,
         @ValueDeserializerComponent.Vec<u8>:
             SerializeBase64,
         @ValueDeserializerComponent.DateTime<Utc>:
@@ -96,7 +100,7 @@ check_components! {
             i64,
             u64,
             String,
-            (),
+            Nil,
             Vec<u8>,
             DateTime<Utc>,
             Posted,
@@ -116,7 +120,7 @@ check_components! {
             (Life<'de>, i64),
             (Life<'de>, u64),
             (Life<'de>, String),
-            (Life<'de>, ()),
+            (Life<'de>, Nil),
             (Life<'de>, Vec<u8>),
             (Life<'de>, DateTime<Utc>),
             (Life<'de>, Posted),
@@ -141,8 +145,10 @@ delegate_components! {
 
         @ValueSerializerComponent.<'a, T> &'a T:
             SerializeDeref,
-        @ValueSerializerComponent.[u64, String, ()]:
+        @ValueSerializerComponent.[u64, String]:
             UseSerde,
+        @ValueSerializerComponent.Nil:
+            SerializeUnit,
         @ValueSerializerComponent.Vec<u8>:
             SerializeHex,
         @ValueSerializerComponent.DateTime<Utc>:
@@ -154,8 +160,10 @@ delegate_components! {
         @ValueSerializerComponent.Vec<ChatEvent>:
             SerializeIterator,
 
-        @ValueDeserializerComponent.[u64, String, ()]:
+        @ValueDeserializerComponent.[u64, String]:
             UseSerde,
+        @ValueDeserializerComponent.Nil:
+            SerializeUnit,
         @ValueDeserializerComponent.Vec<u8>:
             SerializeHex,
         @ValueDeserializerComponent.DateTime<Utc>:
@@ -175,7 +183,7 @@ check_components! {
         ValueSerializerComponent: [
             u64,
             String,
-            (),
+            Nil,
             Vec<u8>,
             DateTime<Utc>,
             Posted,
@@ -194,7 +202,7 @@ check_components! {
         ValueDeserializerComponent: [
             (Life<'de>, u64),
             (Life<'de>, String),
-            (Life<'de>, ()),
+            (Life<'de>, Nil),
             (Life<'de>, Vec<u8>),
             (Life<'de>, DateTime<Utc>),
             (Life<'de>, Posted),
@@ -229,7 +237,7 @@ fn batch() -> SyncBatch {
                 author_id: 3,
                 emoji: "👍🏽".into(),
             }),
-            ChatEvent::HistoryCleared(()),
+            ChatEvent::HistoryCleared,
         ],
     }
 }

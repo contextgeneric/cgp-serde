@@ -11,9 +11,10 @@ use crate::types::DeserializeWithContext;
 /// the payload through the context.
 ///
 /// The enum needs `#[derive(HasFields)]`, which `#[derive(CgpVariant)]` and `#[derive(CgpData)]`
-/// include, and every variant must hold exactly one unnamed payload, as those derives require. A
-/// unit-like variant is written `Empty(())`, and the context's wiring for `()` decides its format.
-/// A variant is found by its name in text formats and by its declaration index in binary ones.
+/// include, and every variant must hold one unnamed payload or no fields, as those derives require.
+/// A variant with no fields has the payload `Nil`, and the context's wiring for `Nil` decides its
+/// format. A variant is found by its name in text formats and by its declaration index in binary
+/// ones.
 pub struct DeserializeVariantFields;
 
 #[cgp_impl(DeserializeVariantFields)]

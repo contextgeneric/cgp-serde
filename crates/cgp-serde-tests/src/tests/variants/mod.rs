@@ -5,6 +5,7 @@
 //! that pin a known issue say so, so that fixing the issue fails the test.
 
 mod deserialize_input;
+mod empty_variants;
 mod formats;
 mod lifetimes;
 mod nesting;
@@ -17,7 +18,7 @@ use cgp::prelude::*;
 use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent};
 use cgp_serde::providers::{
     DeserializeExtend, DeserializeRecordFields, DeserializeVariantFields, SerializeDeref,
-    SerializeIterator, SerializeRecordFields, SerializeVariantFields, UseSerde,
+    SerializeIterator, SerializeRecordFields, SerializeUnit, SerializeVariantFields, UseSerde,
 };
 use cgp_serde_extra::providers::SerializeHex;
 
@@ -38,6 +39,15 @@ pub enum Shape {
     Rectangle(Rectangle),
     Label(String),
     Empty(()),
+}
+
+/// An enum with a variant of each empty form, each of which carries the payload `Nil`.
+#[derive(Debug, Clone, PartialEq, CgpVariant)]
+pub enum Status {
+    Active(u64),
+    Closed,
+    Paused(),
+    Archived {},
 }
 
 #[derive(Debug, Clone, PartialEq, CgpVariant)]
@@ -93,24 +103,28 @@ delegate_components! {
             SerializeDeref,
         @ValueSerializerComponent.[u64, String, (), Option<String>, <'a> &'a str]:
             UseSerde,
+        @ValueSerializerComponent.Nil:
+            SerializeUnit,
         @ValueSerializerComponent.Vec<u8>:
             SerializeHex,
         @ValueSerializerComponent.[Vec<u64>, Vec<Shape>]:
             SerializeIterator,
         @ValueSerializerComponent.[Circle, Rectangle, Drawing]:
             SerializeRecordFields,
-        @ValueSerializerComponent.[Shape, Only, Digit, Payload, Token<'static>]:
+        @ValueSerializerComponent.[Shape, Status, Only, Digit, Payload, Token<'static>]:
             SerializeVariantFields,
 
         @ValueDeserializerComponent.[u64, String, (), Option<String>, <'a> &'a str]:
             UseSerde,
+        @ValueDeserializerComponent.Nil:
+            SerializeUnit,
         @ValueDeserializerComponent.Vec<u8>:
             SerializeHex,
         @ValueDeserializerComponent.[Vec<u64>, Vec<Shape>]:
             DeserializeExtend,
         @ValueDeserializerComponent.[Circle, Rectangle, Drawing]:
             DeserializeRecordFields,
-        @ValueDeserializerComponent.[Shape, Only, Digit, Payload, <'a> Token<'a>]:
+        @ValueDeserializerComponent.[Shape, Status, Only, Digit, Payload, <'a> Token<'a>]:
             DeserializeVariantFields,
     }
 }
@@ -120,6 +134,7 @@ check_components! {
     App {
         ValueSerializerComponent: [
             Shape,
+            Status,
             Only,
             Digit,
             Payload,
@@ -134,6 +149,7 @@ check_components! {
     <'de> App {
         ValueDeserializerComponent: [
             (Life<'de>, Shape),
+            (Life<'de>, Status),
             (Life<'de>, Only),
             (Life<'de>, Digit),
             (Life<'de>, Payload),

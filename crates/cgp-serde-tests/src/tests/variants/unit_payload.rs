@@ -1,4 +1,5 @@
-//! A unit-like variant holds `()`, and the context's wiring for `()` decides how it is written.
+//! A variant may hold `()` rather than having no fields, and the context's wiring for `()` decides
+//! how it is written.
 
 use core::fmt;
 
