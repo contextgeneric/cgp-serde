@@ -104,7 +104,7 @@ fn test_deserialize_with_arena() {
     let arena = Arena::new();
     let app = App { arena: &arena };
 
-    let deserialized: Cluster<'_> = app.deserialize_json_string(&serialized).unwrap();
+    let deserialized: Cluster<'_> = app.deserialize_json_string(serialized).unwrap();
 
     assert_eq!(
         deserialized,

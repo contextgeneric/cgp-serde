@@ -7,7 +7,8 @@ repository   = { workspace = true }
 authors      = { workspace = true }
 rust-version = { workspace = true }
 keywords     = { workspace = true }
-description  = "CGP-enabled serde implementation"
+description  = "Tests for the cgp-serde crates"
+publish      = false
 
 [dependencies]
 cgp                     = { workspace = true }

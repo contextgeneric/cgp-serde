@@ -5,7 +5,15 @@ use serde::ser::SerializeMap;
 use crate::components::{CanSerializeValue, ValueSerializer, ValueSerializerComponent};
 use crate::types::SerializeWithContext;
 
-#[cgp_impl(new SerializeFields)]
+/// Serializes a struct as a map from each field's name to its value, serializing every field value
+/// through the context.
+///
+/// The struct needs `#[derive(HasField, HasFields)]`, which `#[derive(CgpData)]` includes. Fields are
+/// written in declaration order under their Rust names, and the map is opened without a length, so
+/// length-prefixed formats such as postcard reject the output.
+pub struct SerializeRecordFields;
+
+#[cgp_impl(SerializeRecordFields)]
 impl<Value> ValueSerializer<Value>
 where
     Value: HasFields,

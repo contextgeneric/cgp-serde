@@ -3,7 +3,9 @@ use cgp::extra::handler::CanTryCompute;
 use cgp::prelude::*;
 use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};
 use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent};
-use cgp_serde::providers::{DeserializeRecordFields, SerializeFields, SerializeString, UseSerde};
+use cgp_serde::providers::{
+    DeserializeRecordFields, SerializeRecordFields, SerializeString, UseSerde,
+};
 use cgp_serde_extra::providers::SerializeHex;
 use cgp_serde_json::code::{DeserializeJson, SerializeJson};
 use cgp_serde_json::providers::{DeserializeFromJsonString, SerializeToJsonString};
@@ -41,7 +43,7 @@ delegate_components! {
             SerializeHex,
 
         @ValueSerializerComponent.Payload:
-            SerializeFields,
+            SerializeRecordFields,
 
         @ValueDeserializerComponent.[
             u64,

@@ -1,6 +1,6 @@
 use cgp::prelude::*;
 use cgp_serde::components::ValueSerializerComponent;
-use cgp_serde::providers::{SerializeDeref, SerializeFields, SerializeIterator, UseSerde};
+use cgp_serde::providers::{SerializeDeref, SerializeIterator, SerializeRecordFields, UseSerde};
 use cgp_serde::types::SerializeWithContext;
 use cgp_serde_extra::providers::{
     SerializeBase64, SerializeHex, SerializeRfc3339Date, SerializeTimestamp,
@@ -60,7 +60,7 @@ delegate_components! {
             MessagesByTopic,
             EncryptedMessage,
         ]:
-            SerializeFields,
+            SerializeRecordFields,
     }
 }
 
@@ -111,7 +111,7 @@ delegate_components! {
             MessagesByTopic,
             EncryptedMessage,
         ]:
-            SerializeFields,
+            SerializeRecordFields,
     }
 }
 
@@ -152,11 +152,61 @@ fn test_nested_serialization() {
         }],
     };
 
-    let serialized =
+    let serialized_a =
         serde_json::to_string_pretty(&SerializeWithContext::new(&AppA, &archive)).unwrap();
-    println!("serialized with A: {serialized}");
 
-    let serialized =
+    assert_eq!(
+        serialized_a,
+        r#"{
+  "decryption_key": "746f702d736563726574",
+  "messages_by_topics": [
+    {
+      "encrypted_topic": "416c6c2061626f757420434750",
+      "messages": [
+        {
+          "message_id": 1,
+          "author_id": 2,
+          "date": "2025-11-03T14:15:00+00:00",
+          "encrypted_data": "48656c6c6f2066726f6d20527573744c616221"
+        },
+        {
+          "message_id": 4,
+          "author_id": 8,
+          "date": "2025-12-19T23:45:00+00:00",
+          "encrypted_data": "4f6e65207965617220616e6e697665727361727921"
+        }
+      ]
+    }
+  ]
+}"#
+    );
+
+    let serialized_b =
         serde_json::to_string_pretty(&SerializeWithContext::new(&AppB, &archive)).unwrap();
-    println!("serialized with B: {serialized}");
+
+    assert_eq!(
+        serialized_b,
+        r#"{
+  "decryption_key": "dG9wLXNlY3JldA==",
+  "messages_by_topics": [
+    {
+      "encrypted_topic": "QWxsIGFib3V0IENHUA==",
+      "messages": [
+        {
+          "message_id": 1,
+          "author_id": 2,
+          "date": 1762179300,
+          "encrypted_data": "SGVsbG8gZnJvbSBSdXN0TGFiIQ=="
+        },
+        {
+          "message_id": 4,
+          "author_id": 8,
+          "date": 1766187900,
+          "encrypted_data": "T25lIHllYXIgYW5uaXZlcnNhcnkh"
+        }
+      ]
+    }
+  ]
+}"#
+    );
 }
