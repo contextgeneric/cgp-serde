@@ -68,7 +68,7 @@ checksum = "2fd1289c04a9ea8cb22300a459a72a385d7c73d3259e2ed7dcb2af674838cfa9"
 [[package]]
 name = "cgp"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-core",
  "cgp-extra",
@@ -77,7 +77,7 @@ dependencies = [
 [[package]]
 name = "cgp-async-macro"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -87,7 +87,7 @@ dependencies = [
 [[package]]
 name = "cgp-base"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-base-types",
  "cgp-component",
@@ -97,7 +97,7 @@ dependencies = [
 [[package]]
 name = "cgp-base-extra"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-base",
  "cgp-type",
@@ -106,17 +106,17 @@ dependencies = [
 [[package]]
 name = "cgp-base-types"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 
 [[package]]
 name = "cgp-component"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 
 [[package]]
 name = "cgp-core"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-async-macro",
  "cgp-base",
@@ -130,7 +130,7 @@ dependencies = [
 [[package]]
 name = "cgp-dispatch"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-core",
  "cgp-handler",
@@ -140,7 +140,7 @@ dependencies = [
 [[package]]
 name = "cgp-error"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-base-extra",
  "cgp-field",
@@ -151,7 +151,7 @@ dependencies = [
 [[package]]
 name = "cgp-error-anyhow"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "anyhow",
  "cgp-core",
@@ -160,7 +160,7 @@ dependencies = [
 [[package]]
 name = "cgp-error-extra"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-core",
 ]
@@ -168,43 +168,23 @@ dependencies = [
 [[package]]
 name = "cgp-extra"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-core",
  "cgp-dispatch",
  "cgp-error-extra",
- "cgp-extra-macro",
  "cgp-field-extra",
  "cgp-handler",
+ "cgp-macro-extra",
  "cgp-monad",
  "cgp-run",
  "cgp-runtime",
 ]
 
 [[package]]
-name = "cgp-extra-macro"
-version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
-dependencies = [
- "cgp-extra-macro-lib",
- "syn 2.0.106",
-]
-
-[[package]]
-name = "cgp-extra-macro-lib"
-version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
-dependencies = [
- "cgp-macro-core",
- "proc-macro2",
- "quote",
- "syn 2.0.106",
-]
-
-[[package]]
 name = "cgp-field"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-base-types",
  "cgp-component",
@@ -214,7 +194,7 @@ dependencies = [
 [[package]]
 name = "cgp-field-extra"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-field",
 ]
@@ -222,7 +202,7 @@ dependencies = [
 [[package]]
 name = "cgp-handler"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-core",
 ]
@@ -230,7 +210,7 @@ dependencies = [
 [[package]]
 name = "cgp-macro"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-macro-lib",
  "syn 2.0.106",
@@ -239,7 +219,7 @@ dependencies = [
 [[package]]
 name = "cgp-macro-core"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "itertools",
  "proc-macro2",
@@ -248,9 +228,41 @@ dependencies = [
 ]
 
 [[package]]
+name = "cgp-macro-extra"
+version = "0.8.0-alpha"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
+dependencies = [
+ "cgp-macro-extra-lib",
+ "syn 2.0.106",
+]
+
+[[package]]
+name = "cgp-macro-extra-core"
+version = "0.8.0-alpha"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
+dependencies = [
+ "cgp-macro-core",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.106",
+]
+
+[[package]]
+name = "cgp-macro-extra-lib"
+version = "0.8.0-alpha"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
+dependencies = [
+ "cgp-macro-core",
+ "cgp-macro-extra-core",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.106",
+]
+
+[[package]]
 name = "cgp-macro-lib"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-macro-core",
  "itertools",
@@ -262,7 +274,7 @@ dependencies = [
 [[package]]
 name = "cgp-monad"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-core",
  "cgp-handler",
@@ -271,7 +283,7 @@ dependencies = [
 [[package]]
 name = "cgp-run"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-core",
 ]
@@ -279,7 +291,7 @@ dependencies = [
 [[package]]
 name = "cgp-runtime"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-core",
 ]
@@ -368,7 +380,7 @@ dependencies = [
 [[package]]
 name = "cgp-type"
 version = "0.8.0-alpha"
-source = "git+https://github.com/contextgeneric/cgp.git?branch=main#adc616cebb1cde0197b3be7e127c8a886d289c48"
+source = "git+https://github.com/contextgeneric/cgp.git?branch=main#69d285410fc2f7b40eceaafeef8536642a9390b1"
 dependencies = [
  "cgp-base",
  "cgp-component",
