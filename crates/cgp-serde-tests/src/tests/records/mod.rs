@@ -1,6 +1,7 @@
 //! Tests for `SerializeRecordFields` and `DeserializeRecordFields`.
 //!
-//! The data types derive only `CgpData`, and one context, `App`, wires every type they reach.
+//! The data types derive no serialization trait, only `CgpData` and the comparison traits the
+//! assertions need, and one context, `App`, wires every type they reach.
 //! Each file tests one concern. Tests that pin a known issue say so, so that fixing the issue
 //! fails the test and points at the issue to remove.
 

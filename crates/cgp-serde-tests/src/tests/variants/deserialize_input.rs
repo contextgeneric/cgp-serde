@@ -1,7 +1,21 @@
 //! What `DeserializeVariantFields` accepts and rejects.
 
-use super::{App, Circle, Shape};
+use cgp_serde::types::DeserializeWithContext;
+use serde::de::DeserializeSeed;
+use serde::de::value::{Error, MapAccessDeserializer, MapDeserializer};
+
+use super::{App, Circle, Digit, Shape};
 use crate::tests::support::{from_json, from_json_reader};
+
+/// Reads a `Digit` from a one-entry map whose key the format hands over as bytes, as some binary
+/// formats do for identifiers.
+fn digit_from_bytes_key(key: &'static [u8], value: u64) -> Result<Digit, String> {
+    let map = MapDeserializer::<_, Error>::new([(key, value)].into_iter());
+
+    DeserializeWithContext::new(&App)
+        .deserialize(MapAccessDeserializer::new(map))
+        .map_err(|e| e.to_string())
+}
 
 #[test]
 fn an_unknown_variant_lists_the_expected_names() {
@@ -71,5 +85,22 @@ fn trailing_input_is_rejected() {
     assert_eq!(
         from_json::<App, Shape>(&App, r#"{"Label":"x"} {}"#),
         Err("trailing characters at line 1 column 15".to_owned())
+    );
+}
+
+#[test]
+fn a_variant_name_given_as_bytes_matches() {
+    assert_eq!(digit_from_bytes_key(b"D3", 3), Ok(Digit::D3(3)));
+}
+
+#[test]
+fn an_unknown_variant_given_as_bytes_is_escaped_in_the_error() {
+    assert_eq!(
+        digit_from_bytes_key(b"D\xff", 0),
+        Err(
+            "unknown variant `D\\xff`, expected one of `D0`, `D1`, `D2`, `D3`, `D4`, `D5`, \
+             `D6`, `D7`, `D8`, `D9`"
+                .to_owned()
+        )
     );
 }
