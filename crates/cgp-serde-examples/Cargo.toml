@@ -1,0 +1,43 @@
+[package]
+name         = "cgp-serde-examples"
+version      =  "0.2.0"
+edition      = { workspace = true }
+license      = { workspace = true }
+repository   = { workspace = true }
+authors      = { workspace = true }
+rust-version = { workspace = true }
+keywords     = { workspace = true }
+description  = "Runnable examples for the cgp-serde crates"
+publish      = false
+
+[dev-dependencies]
+cgp                     = { workspace = true }
+cgp-error-anyhow        = { workspace = true }
+cgp-serde               = { workspace = true }
+cgp-serde-extra         = { workspace = true }
+cgp-serde-json          = { workspace = true }
+cgp-serde-alloc         = { workspace = true }
+cgp-serde-typed-arena   = { workspace = true }
+
+serde           = { workspace = true }
+serde_json      = { workspace = true }
+chrono          = { workspace = true }
+typed-arena     = { workspace = true }
+
+# `test = true` also builds each example as a test, so `cargo test` runs its assertions.
+
+[[example]]
+name = "basic"
+test = true
+
+[[example]]
+name = "messages"
+test = true
+
+[[example]]
+name = "arena"
+test = true
+
+[[example]]
+name = "arena_simplified"
+test = true

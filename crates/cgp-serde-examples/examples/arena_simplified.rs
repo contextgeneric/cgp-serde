@@ -89,9 +89,7 @@ check_components! {
     }
 }
 
-#[test]
-fn test_deserialize_with_arena() {
-    let serialized = r#"
+const SERIALIZED: &str = r#"
 {
     "id": 8,
     "coords": [
@@ -101,10 +99,21 @@ fn test_deserialize_with_arena() {
 }
 "#;
 
+fn main() {
     let arena = Arena::new();
     let app = App { arena: &arena };
 
-    let deserialized: Cluster<'_> = app.deserialize_json_string(serialized).unwrap();
+    let deserialized: Cluster<'_> = app.deserialize_json_string(SERIALIZED).unwrap();
+
+    println!("deserialized: {deserialized:?}");
+}
+
+#[test]
+fn test_deserialize_with_arena() {
+    let arena = Arena::new();
+    let app = App { arena: &arena };
+
+    let deserialized: Cluster<'_> = app.deserialize_json_string(SERIALIZED).unwrap();
 
     assert_eq!(
         deserialized,

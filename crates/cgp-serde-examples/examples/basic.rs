@@ -88,28 +88,44 @@ check_components! {
     }
 }
 
-#[test]
-fn test_basic_serialization() {
-    let context = App;
-
-    let value = Payload {
+fn payload() -> Payload {
+    Payload {
         quantity: 42,
         message: "hello".to_owned(),
         data: vec![1, 2, 3],
-    };
+    }
+}
+
+/// Serializes the payload to JSON and reads it back, both through `App`.
+fn round_trip() -> (String, Payload) {
+    let context = App;
 
     let serialized = context
-        .try_compute(PhantomData::<SerializeJson>, &value)
+        .try_compute(PhantomData::<SerializeJson>, &payload())
         .unwrap();
+
+    let deserialized: Payload = context
+        .try_compute(PhantomData::<DeserializeJson<Payload>>, &serialized)
+        .unwrap();
+
+    (serialized, deserialized)
+}
+
+fn main() {
+    let (serialized, deserialized) = round_trip();
+
+    println!("serialized: {serialized}");
+    println!("deserialized: {deserialized:?}");
+}
+
+#[test]
+fn test_basic_serialization() {
+    let (serialized, deserialized) = round_trip();
 
     assert_eq!(
         serialized,
         "{\"quantity\":42,\"message\":\"hello\",\"data\":\"010203\"}"
     );
 
-    let deserialized: Payload = context
-        .try_compute(PhantomData::<DeserializeJson<Payload>>, &serialized)
-        .unwrap();
-
-    assert_eq!(deserialized, value);
+    assert_eq!(deserialized, payload());
 }

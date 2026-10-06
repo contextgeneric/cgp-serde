@@ -1,5 +1,5 @@
 use cgp::prelude::*;
-use cgp_serde::components::ValueSerializerComponent;
+use cgp_serde::components::{CanSerializeValue, ValueSerializerComponent};
 use cgp_serde::providers::{SerializeDeref, SerializeIterator, SerializeRecordFields, UseSerde};
 use cgp_serde::types::SerializeWithContext;
 use cgp_serde_extra::providers::{
@@ -129,9 +129,8 @@ check_components! {
     }
 }
 
-#[test]
-fn test_nested_serialization() {
-    let archive = MessagesArchive {
+fn archive() -> MessagesArchive {
+    MessagesArchive {
         decryption_key: b"top-secret".into(),
         messages_by_topics: vec![MessagesByTopic {
             encrypted_topic: b"All about CGP".into(),
@@ -150,10 +149,29 @@ fn test_nested_serialization() {
                 },
             ],
         }],
-    };
+    }
+}
 
-    let serialized_a =
-        serde_json::to_string_pretty(&SerializeWithContext::new(&AppA, &archive)).unwrap();
+/// Serializes `archive` as pretty-printed JSON through `context`.
+fn to_pretty_json<Context>(context: &Context, archive: &MessagesArchive) -> String
+where
+    Context: CanSerializeValue<MessagesArchive>,
+{
+    serde_json::to_string_pretty(&SerializeWithContext::new(context, archive)).unwrap()
+}
+
+fn main() {
+    let archive = archive();
+
+    println!("serialized with A: {}", to_pretty_json(&AppA, &archive));
+    println!("serialized with B: {}", to_pretty_json(&AppB, &archive));
+}
+
+#[test]
+fn test_nested_serialization() {
+    let archive = archive();
+
+    let serialized_a = to_pretty_json(&AppA, &archive);
 
     assert_eq!(
         serialized_a,
@@ -181,8 +199,7 @@ fn test_nested_serialization() {
 }"#
     );
 
-    let serialized_b =
-        serde_json::to_string_pretty(&SerializeWithContext::new(&AppB, &archive)).unwrap();
+    let serialized_b = to_pretty_json(&AppB, &archive);
 
     assert_eq!(
         serialized_b,

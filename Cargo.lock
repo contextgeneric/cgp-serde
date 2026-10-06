@@ -302,6 +302,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "cgp-serde-examples"
+version = "0.2.0"
+dependencies = [
+ "cgp",
+ "cgp-error-anyhow",
+ "cgp-serde",
+ "cgp-serde-alloc",
+ "cgp-serde-extra",
+ "cgp-serde-json",
+ "cgp-serde-typed-arena",
+ "chrono",
+ "serde",
+ "serde_json",
+ "typed-arena",
+]
+
+[[package]]
 name = "cgp-serde-extra"
 version = "0.2.0"
 dependencies = [
@@ -327,22 +344,14 @@ dependencies = [
 name = "cgp-serde-tests"
 version = "0.2.0"
 dependencies = [
- "base64",
  "cgp",
- "cgp-error-anyhow",
  "cgp-serde",
- "cgp-serde-alloc",
  "cgp-serde-extra",
- "cgp-serde-json",
- "cgp-serde-typed-arena",
- "chrono",
- "hex",
  "postcard",
  "ron",
  "serde",
  "serde_json",
  "trybuild",
- "typed-arena",
 ]
 
 [[package]]

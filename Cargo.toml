@@ -9,6 +9,7 @@ members = [
     "crates/cgp-serde-alloc",
     "crates/cgp-serde-typed-arena",
     "crates/cgp-serde-tests",
+    "crates/cgp-serde-examples",
 ]
 
 [workspace.package]
