@@ -4,3 +4,4 @@ pub mod basic;
 pub mod messages;
 pub mod records;
 pub mod support;
+pub mod variants;

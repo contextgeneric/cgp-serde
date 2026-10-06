@@ -1,0 +1,27 @@
+error[E0275]: overflow evaluating the requirement `App: IsProviderFor<ValueSerializerComponent, App, Expr>`
+  --> tests/compile_fail/recursive_enum.rs:28:9
+   |
+28 |         ValueSerializerComponent: Expr,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: required for `App` to implement `ValueSerializer<App, Expr>`
+   = note: required for `App` to implement `CanSerializeValue<Expr>`
+   = note: 4 redundant requirements hidden
+   = note: required for `App` to implement `CanSerializeValue<Box<Expr>>`
+   = note: required for `Either<cgp::prelude::Field<Symbol<6, cgp::prelude::Chars<'N', cgp::prelude::Chars<'e', cgp::prelude::Chars<'g', cgp::prelude::Chars<'a', cgp::prelude::Chars<'t', cgp::prelude::Chars<'e', Nil>>>>>>>, &'a Box<Expr>>, Void>` to implement `for<'a> cgp_serde::providers::variant_fields::VariantsSerializer<App>`
+   = note: 1 redundant requirement hidden
+   = note: required for `Either<cgp::prelude::Field<Symbol<7, cgp::prelude::Chars<'L', cgp::prelude::Chars<'i', cgp::prelude::Chars<'t', cgp::prelude::Chars<'e', cgp::prelude::Chars<'r', cgp::prelude::Chars<'a', cgp::prelude::Chars<'l', Nil>>>>>>>>, &'a u64>, Either<cgp::prelude::Field<Symbol<6, cgp::prelude::Chars<'N', cgp::prelude::Chars<'e', cgp::prelude::Chars<'g', cgp::prelude::Chars<'a', cgp::prelude::Chars<'t', cgp::prelude::Chars<'e', Nil>>>>>>>, &'a Box<Expr>>, Void>>` to implement `for<'a> cgp_serde::providers::variant_fields::VariantsSerializer<App>`
+   = note: required for `SerializeVariantFields` to implement `IsProviderFor<ValueSerializerComponent, App, Expr>`
+   = note: 1 redundant requirement hidden
+   = note: required for `RedirectLookup<App, PathCons<ValueSerializerComponent, Nil>>` to implement `IsProviderFor<ValueSerializerComponent, App, Expr>`
+   = note: required for `App` to implement `CanUseComponent<ValueSerializerComponent, Expr>`
+note: required by a bound in `__CheckApp`
+  --> tests/compile_fail/recursive_enum.rs:26:1
+   |
+26 | / check_components! {
+27 | |     App {
+28 | |         ValueSerializerComponent: Expr,
+29 | |     }
+30 | | }
+   | |_^ required by this bound in `__CheckApp`
+   = note: this error originates in the macro `check_components` (in Nightly builds, run with -Z macro-backtrace for more info)
