@@ -25,3 +25,5 @@ hex             = { workspace = true }
 base64          = { workspace = true }
 chrono          = { workspace = true }
 typed-arena     = { workspace = true }
+ron             = { workspace = true }
+postcard        = { workspace = true }
