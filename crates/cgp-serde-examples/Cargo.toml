@@ -35,6 +35,10 @@ name = "messages"
 test = true
 
 [[example]]
+name = "events"
+test = true
+
+[[example]]
 name = "arena"
 test = true
 
