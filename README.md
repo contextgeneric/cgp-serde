@@ -1,21 +1,24 @@
-# cgp-serde: Modular Serialization Library for Serde
+[![Crates.io](https://img.shields.io/crates/v/cgp-serde.svg)](https://crates.io/crates/cgp-serde)
+[![Docs.rs](https://docs.rs/cgp-serde/badge.svg)](https://docs.rs/cgp-serde)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/contextgeneric/cgp-serde/blob/main/LICENSE)
 
-# Announcement
+# cgp-serde: modular serialization for Serde
 
-Read the [announcement blog post for `cgp-serde`](https://contextgeneric.dev/blog/cgp-serde-release/) for the full details.
+**Serde's `Serialize` and `Deserialize` rebuilt as
+[Context-Generic Programming (CGP)](https://contextgeneric.dev/) components, so implementations that
+Rust's coherence rules reject can coexist.**
 
-# Overview
+`cgp-serde` extends Serde's two traits with CGP, which makes it possible to write overlapping or
+orphaned implementations of them and to choose one per context. It also brings context-dependent
+deserialization to stable Rust, such as an implementation that deserializes a `'a T` value through an
+arena allocator.
 
-[**cgp-serde**](https://github.com/contextgeneric/cgp-serde) is a modular serialization library for [Serde](https://serde.rs/) that leverages the power of [**Context-Generic Programming**](https://contextgeneric.dev/) (CGP).
+**[Website](https://contextgeneric.dev/) · [Project page](https://contextgeneric.dev/docs/projects/cgp-serde/) · [CGP quickstart](https://contextgeneric.dev/docs/quickstart) · [Announcement post](https://contextgeneric.dev/blog/cgp-serde-release/)**
 
-In short, `cgp-serde` extends Serde’s original [`Serialize`](https://docs.rs/serde/latest/serde/trait.Serialize.html) and [`Deserialize`](https://docs.rs/serde/latest/serde/trait.Deserialize.html) traits with CGP, making it possible to write **overlapping** or **orphaned** implementations of these traits and thus bypass the standard Rust **coherence restrictions**.
+## The two components
 
-Furthermore, `cgp-serde` allows us to leverage the powerful [**context and capabilities**](https://tmandry.gitlab.io/blog/posts/2021-12-21-context-capabilities/) concepts in stable Rust today. This unlocks the ability to write context-dependent implementations of `Deserialize`, such as one that uses an arena allocator to deserialize a `'a T` value, a concept detailed in the proposal article.
-
-
-# Context-Generic Serialization Traits
-
-The key highlight of `cgp-serde` is its introduction of context-generic versions of the Serde traits. First, the [`Serialize`](https://docs.rs/serde/latest/serde/trait.Serialize.html) trait is redefined as follows:
+The crate redefines each Serde trait as a CGP component. The original `Self` type moves into a
+`Value` parameter, and `Self` becomes the context, which supplies runtime dependencies.
 
 ```rust
 #[cgp_component {
@@ -29,10 +32,6 @@ pub trait CanSerializeValue<Value: ?Sized> {
 }
 ```
 
-Compared to the original `Serialize` trait, `cgp-serde` provides the `CanSerializeValue` CGP trait, which moves the original `Self` type from `Serialize` to an explicit generic parameter named `Value`. The `Self` type in `CanSerializeValue` now represents a **context** type, which can be used for **dependency injection**. The `serialize` method also accepts an extra `&self` value, making it possible to retrieve additional runtime dependencies from this context.
-
-In a similar manner, `cgp-serde` defines a context-generic version of the [`Deserialize`](https://docs.rs/serde/latest/serde/trait.Deserialize.html) trait as follows:
-
 ```rust
 #[cgp_component {
     provider: ValueDeserializer,
@@ -45,20 +44,46 @@ pub trait CanDeserializeValue<'de, Value> {
 }
 ```
 
-Analogous to `CanSerializeValue`, the `CanDeserializeValue` trait moves the original `Self` type in `Deserialize` to become the `Value` generic parameter. This `deserialize` method similarly accepts an additional `&self` value, which can be utilized to supply runtime dependencies, such as an arena allocator.
+`CanSerializeValue` and `CanDeserializeValue` are the **consumer traits**, the ones callers use. The
+`provider` argument generates the **provider traits** `ValueSerializer` and `ValueDeserializer`, which
+named implementations use to bypass the coherence restrictions. A CGP component is used through its
+consumer trait and implemented through its provider trait.
 
-## Provider Traits
+The `derive_delegate` argument generates a `UseDelegate` provider that dispatches statically on the
+`Value` type. The CGP reference documents the newer `open` statement, which supersedes that idiom for
+new code; this crate still uses the generated table.
 
-In addition to having the extra `Context` parameter as the `Self` type, both `CanSerializeValue` and `CanDeserializeValue` are annotated with the `#[cgp_component]` macro, which is the mechanism that unlocks additional CGP capabilities on these traits.
+## The crates
 
-The `provider` argument to `#[cgp_component]` automatically generates the **provider traits** called `ValueSerializer` and `ValueDeserializer`. These traits are the ones you will use for implementing **named** serialization implementations that can bypass the coherence restrictions.
+- [`cgp-serde`](./crates/cgp-serde): the two components and their core providers.
+- [`cgp-serde-extra`](./crates/cgp-serde-extra): additional providers for serialization and
+  deserialization.
+- [`cgp-serde-json`](./crates/cgp-serde-json): a CGP wrapper around `serde_json`.
+- [`cgp-serde-alloc`](./crates/cgp-serde-alloc) and
+  [`cgp-serde-typed-arena`](./crates/cgp-serde-typed-arena): arena-based deserialization.
+- [`cgp-serde-examples`](./crates/cgp-serde-examples): runnable examples.
 
-Conversely, in CGP, we refer to the original traits `CanSerializeValue` and `CanDeserializeValue` as the **consumer traits**. The general rule of thumb is that a CGP component is **used** through its consumer trait but **implemented** using its provider trait.
+## Building
 
-## `UseDelegate` Provider
+The workspace builds against the `cgp` repository's `main` branch through its `[patch.crates-io]`
+section, because it tracks unreleased CGP code. To build against a local `cgp` checkout, switch those
+entries to the commented-out paths into `../cgp`.
 
-Our CGP trait definitions also include a second `derive_delegate` entry within the `#[cgp_component]` macro. This entry generates a specialized `UseDelegate` provider that enables **static dispatch** of provider implementations based on the specific `Value` type.
+```sh
+cargo test --workspace
+```
 
-# Learn More
+## Learn CGP
 
-This repository will be updated with more details later on. Until then, read the [announcement blog post for `cgp-serde`](https://contextgeneric.dev/blog/cgp-serde-release/) for the full details.
+The website is the main documentation for CGP: the
+[quickstart](https://contextgeneric.dev/docs/quickstart), the
+[tutorials](https://contextgeneric.dev/docs/tutorials/hello), the
+[concepts](https://contextgeneric.dev/docs/concepts/), and the
+[construct reference](https://contextgeneric.dev/docs/reference/). The
+[project page](https://contextgeneric.dev/docs/projects/cgp-serde/) explains this repository, and the
+[CGP knowledge base](https://github.com/contextgeneric/cgp-knowledge-base) records it in depth for
+contributors and agents.
+
+## License
+
+Licensed under the MIT license.
