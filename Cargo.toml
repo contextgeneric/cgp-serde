@@ -16,7 +16,9 @@ members = [
 rust-version    = "1.90"
 edition         = "2024"
 license         = "MIT"
-repository      = "https://github.com/contextgeneric/cgp"
+repository      = "https://github.com/contextgeneric/cgp-serde"
+homepage        = "https://contextgeneric.dev/docs/projects/cgp-serde/"
+categories      = ["encoding", "rust-patterns"]
 authors         = ["Soares Chen <soares.chen@maybevoid.com>"]
 keywords        = ["cgp"]
 
