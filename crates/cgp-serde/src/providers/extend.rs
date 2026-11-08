@@ -3,6 +3,8 @@ use serde::de::{DeserializeSeed, Visitor};
 
 use crate::components::{CanDeserializeValue, ValueDeserializer, ValueDeserializerComponent};
 
+/// Reads a sequence into a collection that starts at its default and extends item by item. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_extend).
 pub struct DeserializeExtend;
 
 #[cgp_impl(DeserializeExtend)]

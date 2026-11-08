@@ -9,6 +9,8 @@ use cgp_serde::components::{
 use hex::{FromHex, ToHex};
 use serde::de::Error;
 
+/// Encodes bytes as a lowercase hexadecimal string, and decodes one back. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_hex).
 pub struct SerializeHex;
 
 #[cgp_impl(SerializeHex)]

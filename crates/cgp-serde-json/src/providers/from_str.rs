@@ -3,6 +3,8 @@ use serde_json::de::StrRead;
 
 use crate::providers::DeserializeFromJsonReader;
 
+/// Deserializes a value from anything that is a `str`, through an inner reader provider. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_from_json_string).
 pub struct DeserializeFromJsonString<InDeserializer = DeserializeFromJsonReader>(
     pub PhantomData<InDeserializer>,
 );

@@ -7,6 +7,8 @@ use crate::components::{
     ValueDeserializer, ValueDeserializerComponent, ValueSerializer, ValueSerializerComponent,
 };
 
+/// Serializes anything viewable as bytes with Serde's byte method, and reads borrowed bytes back. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_bytes).
 pub struct SerializeBytes;
 
 #[cgp_impl(SerializeBytes)]
@@ -36,6 +38,8 @@ where
     }
 }
 
+/// Reads borrowed bytes and converts them into the value with `TryFrom`. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/try_deserialize_bytes).
 #[cgp_impl(new TryDeserializeBytes)]
 impl<'a, Value> ValueDeserializer<'a, Value>
 where

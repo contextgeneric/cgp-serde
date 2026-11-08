@@ -6,6 +6,8 @@ use cgp_serde::components::{
 use chrono::{DateTime, Utc};
 use serde::de::Error;
 
+/// Encodes a `DateTime<Utc>` as whole Unix seconds, and builds one back. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_timestamp).
 pub struct SerializeTimestamp;
 
 #[cgp_impl(SerializeTimestamp)]

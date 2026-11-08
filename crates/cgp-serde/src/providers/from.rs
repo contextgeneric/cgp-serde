@@ -5,6 +5,9 @@ use crate::components::{
     ValueSerializer, ValueSerializerComponent,
 };
 
+/// Encodes a value by converting it into `Target` with `Into`, and decodes one by converting from
+/// `Target` instead. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_from).
 pub struct SerializeFrom<Target>(pub PhantomData<Target>);
 
 #[cgp_impl(SerializeFrom<Target>)]

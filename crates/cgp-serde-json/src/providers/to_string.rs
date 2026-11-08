@@ -4,6 +4,8 @@ use cgp::prelude::*;
 use cgp_serde::components::CanSerializeValue;
 use cgp_serde::types::SerializeWithContext;
 
+/// Serializes a value to a compact JSON string through the context. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_to_json_string).
 #[cgp_impl(new SerializeToJsonString)]
 #[use_type(HasErrorType.Error)]
 #[uses(CanSerializeValue<Value>, CanRaiseError<serde_json::Error>)]

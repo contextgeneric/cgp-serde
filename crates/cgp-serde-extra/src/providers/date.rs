@@ -8,6 +8,8 @@ use cgp_serde::components::{
 use chrono::{DateTime, Utc};
 use serde::de::Error;
 
+/// Encodes a `DateTime<Utc>` as an RFC 3339 string, and parses one back. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_rfc3339_date).
 pub struct SerializeRfc3339Date;
 
 #[cgp_impl(SerializeRfc3339Date)]

@@ -9,6 +9,8 @@ use cgp_serde::components::{
 };
 use serde::de::Error;
 
+/// Encodes bytes as a standard, padded base64 string, and decodes one into a `Vec<u8>`. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_base64).
 pub struct SerializeBase64;
 
 #[cgp_impl(SerializeBase64)]

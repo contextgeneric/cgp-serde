@@ -3,6 +3,8 @@ use serde::de::Visitor;
 
 use crate::components::{ValueDeserializer, ValueDeserializerComponent};
 
+/// Substitutes the type's default for a null input and hands any other input to an inner provider. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_default).
 #[cgp_impl(new DeserializeDefault<Provider>)]
 #[use_provider(Provider: ValueDeserializer<'a, Value>)]
 impl<'a, Value, Provider> ValueDeserializer<'a, Value>

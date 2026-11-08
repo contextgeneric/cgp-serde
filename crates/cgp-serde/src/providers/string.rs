@@ -8,6 +8,8 @@ use crate::components::{
     ValueDeserializer, ValueDeserializerComponent, ValueSerializer, ValueSerializerComponent,
 };
 
+/// Serializes anything viewable as a string, and reads an owned `String` back. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_string).
 pub struct SerializeString;
 
 #[cgp_impl(SerializeString)]

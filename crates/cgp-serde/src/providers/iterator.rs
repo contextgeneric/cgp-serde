@@ -4,6 +4,8 @@ use serde::ser::SerializeSeq;
 use crate::components::{CanSerializeValue, ValueSerializer, ValueSerializerComponent};
 use crate::types::SerializeWithContext;
 
+/// Serializes a collection as a sequence of the items its borrow yields. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_iterator).
 #[cgp_impl(new SerializeIterator)]
 impl<Value> ValueSerializer<Value>
 where

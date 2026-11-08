@@ -4,6 +4,8 @@ use serde::de::DeserializeSeed;
 
 use crate::components::CanDeserializeValue;
 
+/// Wraps the context as a Serde seed, so a deserializer reads a value through its wiring. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/types/deserialize_with_context).
 pub struct DeserializeWithContext<'a, Context, Value> {
     pub context: &'a Context,
     pub phantom: PhantomData<Value>,
