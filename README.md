@@ -1,6 +1,7 @@
 [![Crates.io](https://img.shields.io/crates/v/cgp-serde.svg)](https://crates.io/crates/cgp-serde)
 [![Docs.rs](https://docs.rs/cgp-serde/badge.svg)](https://docs.rs/cgp-serde)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/contextgeneric/cgp-serde/blob/main/LICENSE)
+[![Tests](https://github.com/contextgeneric/cgp-serde/actions/workflows/tests.yml/badge.svg)](https://github.com/contextgeneric/cgp-serde/actions/workflows/tests.yml)
 
 # cgp-serde: modular serialization for Serde
 
