@@ -70,6 +70,7 @@ section, because it tracks unreleased CGP code. To build against a local `cgp` c
 entries to the commented-out paths into `../cgp`.
 
 ```sh
+cargo build --workspace
 cargo test --workspace
 ```
 
