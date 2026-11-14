@@ -1,6 +1,7 @@
 use alloc::string::String;
 
-use cgp::core::field::traits::StaticString;
+use cgp::core::field::traits::{HasFields, StaticString};
+use cgp::core::field::types::{Cons, Field, Nil};
 use cgp::extra::field::impls::{FinalizeOptional, HasOptionalBuilder, SetOptional};
 use cgp::prelude::*;
 use serde::de::{Error, IgnoredAny, MapAccess, Visitor};

@@ -1,4 +1,5 @@
-use cgp::core::field::traits::StaticString;
+use cgp::core::field::traits::{HasField, HasFields, StaticString};
+use cgp::core::field::types::{Cons, Field, Nil};
 use cgp::prelude::*;
 use serde::ser::SerializeMap;
 

@@ -3,6 +3,7 @@
 
 use core::fmt;
 
+use cgp::core::field::types::Life;
 use cgp::prelude::*;
 use cgp_serde::components::{
     ValueDeserializer, ValueDeserializerComponent, ValueSerializer, ValueSerializerComponent,

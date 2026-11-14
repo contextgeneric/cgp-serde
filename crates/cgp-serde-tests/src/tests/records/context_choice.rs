@@ -1,6 +1,7 @@
 //! A record's fields follow the context's choices, so two contexts write the same record
 //! differently.
 
+use cgp::core::field::types::Life;
 use cgp::prelude::*;
 use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent};
 use cgp_serde::providers::{DeserializeRecordFields, SerializeRecordFields, UseSerde};

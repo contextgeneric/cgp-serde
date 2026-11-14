@@ -13,6 +13,7 @@ mod lifetimes;
 mod round_trip;
 mod serde_compat;
 
+use cgp::core::field::types::Life;
 use cgp::prelude::*;
 use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent};
 use cgp_serde::providers::{

@@ -1,5 +1,6 @@
 //! Enums inside records and collections, and a payload whose encoding differs by context.
 
+use cgp::core::field::types::Life;
 use cgp::prelude::*;
 use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent};
 use cgp_serde::providers::{

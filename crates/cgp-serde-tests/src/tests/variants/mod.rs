@@ -14,6 +14,7 @@ mod round_trip;
 mod serde_compat;
 mod unit_payload;
 
+use cgp::core::field::types::{Life, Nil};
 use cgp::prelude::*;
 use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent};
 use cgp_serde::providers::{

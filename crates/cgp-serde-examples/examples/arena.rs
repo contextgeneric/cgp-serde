@@ -1,4 +1,6 @@
 use cgp::core::error::{ErrorRaiserComponent, ErrorTypeProviderComponent};
+use cgp::core::field::impls::UseField;
+use cgp::core::field::types::Life;
 use cgp::extra::handler::TryComputerComponent;
 use cgp::prelude::*;
 use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};

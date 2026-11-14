@@ -1,3 +1,4 @@
+use cgp::core::field::types::{Life, Nil};
 use cgp::prelude::*;
 use cgp_serde::components::{
     CanDeserializeValue, CanSerializeValue, ValueDeserializerComponent, ValueSerializerComponent,
