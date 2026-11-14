@@ -1,5 +1,6 @@
 use core::fmt::{self, Display};
 
+use cgp::core::field::traits::FromFields;
 use cgp::core::field::traits::StaticString;
 use cgp::prelude::*;
 use serde::de::{DeserializeSeed, EnumAccess, Error, VariantAccess, Visitor};

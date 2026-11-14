@@ -1,4 +1,5 @@
 use cgp::core::field::traits::StaticString;
+use cgp::core::field::traits::ToFieldsRef;
 use cgp::prelude::*;
 
 use super::variant::enum_name;
