@@ -1,5 +1,5 @@
 use cgp::core::error::{ErrorRaiserComponent, ErrorTypeProviderComponent};
-use cgp::extra::handler::CanTryCompute;
+use cgp::extra::handler::{CanTryCompute, TryComputerComponent};
 use cgp::prelude::*;
 use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};
 use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent};

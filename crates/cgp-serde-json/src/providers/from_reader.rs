@@ -1,3 +1,4 @@
+use cgp::extra::handler::{TryComputer, TryComputerComponent};
 use cgp::prelude::*;
 use cgp_serde::components::CanDeserializeValue;
 use serde_json::Deserializer;
