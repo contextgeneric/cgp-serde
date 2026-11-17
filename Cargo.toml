@@ -25,15 +25,15 @@ keywords        = ["cgp", "serde", "serialization", "coherence"]
 [workspace.dependencies]
 cgp                 = { version = "0.8.0-prerelease" }
 cgp-error-anyhow    = { version = "0.8.0-prerelease" }
-serde               = { version = "1.0.219" }
-serde_json          = { version = "1.0.143" }
+serde               = { version = "1.0.229" }
+serde_json          = { version = "1.0.154" }
 hex                 = { version = "0.4.3" }
 base64              = { version = "0.22.1" }
-chrono              = { version = "0.4.41" }
+chrono              = { version = "0.4.45" }
 typed-arena         = { version = "2.0.2" }
-ron                 = { version = "0.12.2" }
+ron                 = { version = "0.12.3" }
 postcard            = { version = "1.1.3", default-features = false, features = ["alloc"] }
-trybuild            = { version = "1.0.121" }
+trybuild            = { version = "1.0.125" }
 
 cgp-serde               = { version = "0.3.0-prerelease", path = "./crates/cgp-serde" }
 cgp-serde-extra         = { version = "0.3.0-prerelease", path = "./crates/cgp-serde-extra" }
