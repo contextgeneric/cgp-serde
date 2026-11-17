@@ -65,8 +65,8 @@ fn main() {
 }
 ```
 
-`Order` derives only CGP's general-purpose `CgpData`, and `SerializeRecordFields` writes it as a
-map by asking the context how to encode each field. `SerializeWithDisplay` formats the id with its
+`Order` derives only CGP's general-purpose `CgpData`, and `SerializeRecordFields` writes it as a map
+by asking the context how to encode each field. `SerializeWithDisplay` formats the id with its
 `Display` impl and asks the context to encode the resulting `String`, which both contexts wire to
 `UseSerde`. The `check_components!` lines make the compiler verify each context's whole table.
 
@@ -83,25 +83,41 @@ The crate is `no_std` and links `alloc`. Its items sit in three modules:
 
 The providers fall into these families:
 
-- **A type's own Serde impls:** [`UseSerde`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/use_serde).
-- **Strings and bytes:** [`SerializeString`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_string),
-  [`SerializeBytes`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_bytes), and [`TryDeserializeBytes`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/try_deserialize_bytes).
-- **Conversions:** [`SerializeWithDisplay`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_with_display),
-  [`DeserializeWithFromStr`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_with_from_str), [`SerializeFrom`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_from),
-  [`TrySerializeFrom`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/try_serialize_from), and [`SerializeDeref`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_deref).
-- **Collections:** [`SerializeIterator`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_iterator) and
+- **A type's own Serde impls:**
+  [`UseSerde`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/use_serde).
+- **Strings and bytes:**
+  [`SerializeString`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_string),
+  [`SerializeBytes`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_bytes),
+  and
+  [`TryDeserializeBytes`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/try_deserialize_bytes).
+- **Conversions:**
+  [`SerializeWithDisplay`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_with_display),
+  [`DeserializeWithFromStr`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_with_from_str),
+  [`SerializeFrom`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_from),
+  [`TrySerializeFrom`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/try_serialize_from),
+  and
+  [`SerializeDeref`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_deref).
+- **Collections:**
+  [`SerializeIterator`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_iterator)
+  and
   [`DeserializeExtend`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_extend).
-- **Structs with named fields:** [`SerializeRecordFields`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_record_fields) and
+- **Structs with named fields:**
+  [`SerializeRecordFields`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_record_fields)
+  and
   [`DeserializeRecordFields`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_record_fields).
-- **Enums:** [`SerializeVariantFields`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_variant_fields),
-  [`DeserializeVariantFields`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_variant_fields), and
-  [`SerializeUnit`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_unit) for a variant with no fields.
-- **Defaults:** [`DeserializeDefault`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_default), which reads a null as the type's
-  default.
+- **Enums:**
+  [`SerializeVariantFields`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_variant_fields),
+  [`DeserializeVariantFields`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_variant_fields),
+  and
+  [`SerializeUnit`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_unit)
+  for a variant with no fields.
+- **Defaults:**
+  [`DeserializeDefault`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_default),
+  which reads a null as the type's default.
 
 Four more crates build on this one: [`cgp-serde-extra`](https://docs.rs/cgp-serde-extra) for byte
-and date encodings, [`cgp-serde-json`](https://docs.rs/cgp-serde-json) for JSON operations a
-context wires, and [`cgp-serde-alloc`](https://docs.rs/cgp-serde-alloc) and
+and date encodings, [`cgp-serde-json`](https://docs.rs/cgp-serde-json) for JSON operations a context
+wires, and [`cgp-serde-alloc`](https://docs.rs/cgp-serde-alloc) and
 [`cgp-serde-typed-arena`](https://docs.rs/cgp-serde-typed-arena) for deserializing borrowed values
-into an arena. The [project page](https://contextgeneric.dev/docs/projects/cgp-serde/) explains the design and its costs, with a reference page for
-each provider.
+into an arena. The [project page](https://contextgeneric.dev/docs/projects/cgp-serde/) explains the
+design and its costs, with a reference page for each provider.

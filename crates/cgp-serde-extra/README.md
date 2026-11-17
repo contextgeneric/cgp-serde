@@ -17,11 +17,11 @@ write bytes as hex while another writes them as base64, from the same struct.
 | [`SerializeRfc3339Date`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_rfc3339_date) | `DateTime<Utc>` | an RFC 3339 string such as `"2025-11-03T14:15:00+00:00"` |
 | [`SerializeTimestamp`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_timestamp) | `DateTime<Utc>` | whole seconds since the Unix epoch, such as `1762179300` |
 
-Each provider both serializes and deserializes. It converts the value to a `String`, or an `i64`
-for the timestamp, and encodes that through the context, so a context that wires one of them also
-wires the intermediate type, usually to `UseSerde`. A timestamp keeps no sub-second part, so a
-value with milliseconds does not round-trip exactly.
+Each provider both serializes and deserializes. It converts the value to a `String`, or an `i64` for
+the timestamp, and encodes that through the context, so a context that wires one of them also wires
+the intermediate type, usually to `UseSerde`. A timestamp keeps no sub-second part, so a value with
+milliseconds does not round-trip exactly.
 
 The providers are in `cgp_serde_extra::providers`, and the crate depends on `hex`, `base64`, and
-`chrono`. The [`messages`](https://contextgeneric.dev/docs/projects/cgp-serde/examples/messages) example wires two applications that differ by
-these providers.
+`chrono`. The [`messages`](https://contextgeneric.dev/docs/projects/cgp-serde/examples/messages)
+example wires two applications that differ by these providers.

@@ -14,11 +14,12 @@ services a provider can draw from its context while it deserializes.
 
 The crate holds two items:
 
-- **`traits`:** `HasArena<'a, T>`, a getter component that reads a `&'a Arena<T>` from the
-  context, with the provider trait `ArenaGetter` and the wiring key `ArenaGetterComponent`. A
-  context wires it to the field that holds the arena, typically with `UseField`.
-- **`providers`:** [`AllocateWithArena`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/allocate_with_arena), which implements `CanAlloc` by
-  moving each value into the arena that `HasArena` returns.
+- **`traits`:** `HasArena<'a, T>`, a getter component that reads a `&'a Arena<T>` from the context,
+  with the provider trait `ArenaGetter` and the wiring key `ArenaGetterComponent`. A context wires
+  it to the field that holds the arena, typically with `UseField`.
+- **`providers`:**
+  [`AllocateWithArena`](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/allocate_with_arena),
+  which implements `CanAlloc` by moving each value into the arena that `HasArena` returns.
 
 A context that deserializes into an arena wires three entries: the arena getter to a field,
 `AllocatorComponent` to `AllocateWithArena`, and each borrowed type to `cgp-serde-alloc`'s
