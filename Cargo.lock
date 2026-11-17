@@ -326,6 +326,7 @@ version = "0.3.0-prerelease"
 dependencies = [
  "cgp",
  "serde",
+ "serde_json",
 ]
 
 [[package]]

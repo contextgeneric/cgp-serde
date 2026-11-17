@@ -14,3 +14,6 @@ description  = "Serde's Serialize and Deserialize as Context-Generic Programming
 [dependencies]
 cgp     = { workspace = true }
 serde   = { workspace = true }
+
+[dev-dependencies]
+serde_json  = { workspace = true }
