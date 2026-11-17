@@ -1,0 +1,132 @@
+use cgp::core::error::{ErrorRaiserComponent, ErrorTypeProviderComponent};
+use cgp::core::field::types::Life;
+use cgp::extra::handler::{CanTryCompute, TryComputerComponent};
+use cgp::prelude::*;
+use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};
+use cgp_serde::components::{ValueDeserializerComponent, ValueSerializerComponent};
+use cgp_serde::providers::{
+    DeserializeRecordFields, SerializeRecordFields, SerializeString, UseSerde,
+};
+use cgp_serde_extra::providers::SerializeHex;
+use cgp_serde_json::code::{DeserializeJson, SerializeJson};
+use cgp_serde_json::providers::{DeserializeFromJsonString, SerializeToJsonString};
+
+#[derive(Debug, Eq, PartialEq, CgpData)]
+pub struct Payload {
+    pub quantity: u64,
+    pub message: String,
+    pub data: Vec<u8>,
+}
+
+pub struct App;
+
+delegate_components! {
+    App {
+        open {
+            ValueSerializerComponent,
+            ValueDeserializerComponent,
+            TryComputerComponent,
+        };
+
+        ErrorTypeProviderComponent:
+            UseAnyhowError,
+
+        ErrorRaiserComponent:
+            RaiseAnyhowError,
+
+        @ValueSerializerComponent.u64:
+            UseSerde,
+
+        @ValueSerializerComponent.String:
+            SerializeString,
+
+        @ValueSerializerComponent.Vec<u8>:
+            SerializeHex,
+
+        @ValueSerializerComponent.Payload:
+            SerializeRecordFields,
+
+        @ValueDeserializerComponent.[
+            u64,
+            String,
+        ]:
+            UseSerde,
+
+        @ValueDeserializerComponent.Payload:
+            DeserializeRecordFields,
+
+        @ValueDeserializerComponent.Vec<u8>: SerializeHex,
+
+        @TryComputerComponent.SerializeJson:
+            SerializeToJsonString,
+
+        @TryComputerComponent.<T> DeserializeJson<T>:
+            DeserializeFromJsonString,
+    }
+}
+
+check_components! {
+    #[check_trait(CanUseAppSerializer)]
+    App {
+        ValueSerializerComponent: [
+            u64,
+            String,
+            Vec<u8>,
+            Payload,
+        ],
+    }
+}
+
+check_components! {
+    #[check_trait(CanDeserializeApp)]
+    <'de> App {
+        ValueDeserializerComponent: [
+            (Life<'de>, u64),
+            (Life<'de>, String),
+            (Life<'de>, Vec<u8>),
+            (Life<'de>, Payload),
+        ]
+    }
+}
+
+fn payload() -> Payload {
+    Payload {
+        quantity: 42,
+        message: "hello".to_owned(),
+        data: vec![1, 2, 3],
+    }
+}
+
+/// Serializes the payload to JSON and reads it back, both through `App`.
+fn round_trip() -> (String, Payload) {
+    let context = App;
+
+    let serialized = context
+        .try_compute(PhantomData::<SerializeJson>, &payload())
+        .unwrap();
+
+    let deserialized: Payload = context
+        .try_compute(PhantomData::<DeserializeJson<Payload>>, &serialized)
+        .unwrap();
+
+    (serialized, deserialized)
+}
+
+fn main() {
+    let (serialized, deserialized) = round_trip();
+
+    println!("serialized: {serialized}");
+    println!("deserialized: {deserialized:?}");
+}
+
+#[test]
+fn test_basic_serialization() {
+    let (serialized, deserialized) = round_trip();
+
+    assert_eq!(
+        serialized,
+        "{\"quantity\":42,\"message\":\"hello\",\"data\":\"010203\"}"
+    );
+
+    assert_eq!(deserialized, payload());
+}

@@ -1,0 +1,5 @@
+error[E0477]: the type `Token<'a>` does not fulfill the required lifetime
+  --> tests/compile_fail/variant_serializer_needs_static.rs:27:9
+   |
+27 |         ValueSerializerComponent: Token<'a>,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^

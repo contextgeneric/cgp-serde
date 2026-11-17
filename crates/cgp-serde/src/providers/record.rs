@@ -1,6 +1,7 @@
 use alloc::string::String;
 
-use cgp::core::field::traits::StaticString;
+use cgp::core::field::traits::{HasFields, StaticString};
+use cgp::core::field::types::{Cons, Field, Nil};
 use cgp::extra::field::impls::{FinalizeOptional, HasOptionalBuilder, SetOptional};
 use cgp::prelude::*;
 use serde::de::{Error, IgnoredAny, MapAccess, Visitor};
@@ -8,6 +9,11 @@ use serde::de::{Error, IgnoredAny, MapAccess, Visitor};
 use crate::components::{CanDeserializeValue, ValueDeserializer, ValueDeserializerComponent};
 use crate::types::DeserializeWithContext;
 
+/// Deserializes a struct from a map, deserializing each field value through the context and
+/// collecting the fields in CGP's optional builder.
+///
+/// The struct needs `#[derive(HasFields, BuildField)]`, which `#[derive(CgpData)]` includes. Keys may
+/// come in any order and unknown keys are skipped; a missing or duplicated field is an error.
 pub struct DeserializeRecordFields;
 
 #[cgp_impl(DeserializeRecordFields)]

@@ -1,5 +1,7 @@
 use crate::components::CanSerializeValue;
 
+/// Wraps a value with the context, so Serde serializes it through the context's wiring. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/types/serialize_with_context).
 pub struct SerializeWithContext<'a, Context, T> {
     pub context: &'a Context,
     pub value: &'a T,

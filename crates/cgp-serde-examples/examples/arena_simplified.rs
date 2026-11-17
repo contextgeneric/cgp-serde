@@ -1,4 +1,5 @@
 use cgp::core::error::{ErrorRaiserComponent, ErrorTypeProviderComponent};
+use cgp::core::field::types::Life;
 use cgp::prelude::*;
 use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};
 use cgp_serde::components::{CanDeserializeValue, ValueDeserializer, ValueDeserializerComponent};
@@ -45,20 +46,22 @@ pub struct App<'a> {
 
 delegate_components! {
     <'s> App<'s> {
-        ValueDeserializerComponent:
-            UseDelegate<new DeserializeComponents {
-                u64: UseSerde,
-                [
-                    Coord,
-                    <'a> Cluster<'a>,
-                ]:
-                    DeserializeRecordFields,
-                <'a> &'a Coord:
-                    DeserializeAndAllocate,
-                <'a> Vec<&'a Coord>:
-                    DeserializeExtend,
+        open {ValueDeserializerComponent};
 
-            }>,
+        @ValueDeserializerComponent.u64: UseSerde,
+
+        @ValueDeserializerComponent.[
+            Coord,
+            <'a> Cluster<'a>,
+        ]:
+            DeserializeRecordFields,
+
+        @ValueDeserializerComponent.<'a> &'a Coord:
+            DeserializeAndAllocate,
+
+        @ValueDeserializerComponent.<'a> Vec<&'a Coord>:
+            DeserializeExtend,
+
         ErrorTypeProviderComponent:
             UseAnyhowError,
         ErrorRaiserComponent:
@@ -87,9 +90,7 @@ check_components! {
     }
 }
 
-#[test]
-fn test_deserialize_with_arena() {
-    let serialized = r#"
+const SERIALIZED: &str = r#"
 {
     "id": 8,
     "coords": [
@@ -99,10 +100,21 @@ fn test_deserialize_with_arena() {
 }
 "#;
 
+fn main() {
     let arena = Arena::new();
     let app = App { arena: &arena };
 
-    let deserialized: Cluster<'_> = app.deserialize_json_string(&serialized).unwrap();
+    let deserialized: Cluster<'_> = app.deserialize_json_string(SERIALIZED).unwrap();
+
+    println!("deserialized: {deserialized:?}");
+}
+
+#[test]
+fn test_deserialize_with_arena() {
+    let arena = Arena::new();
+    let app = App { arena: &arena };
+
+    let deserialized: Cluster<'_> = app.deserialize_json_string(SERIALIZED).unwrap();
 
     assert_eq!(
         deserialized,

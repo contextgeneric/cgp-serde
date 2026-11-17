@@ -3,6 +3,8 @@ use cgp_serde::components::{CanDeserializeValue, ValueDeserializer, ValueDeseria
 
 use crate::traits::CanAlloc;
 
+/// Deserializes an owned value and allocates it, returning a reference that outlives the input. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/deserialize_and_allocate).
 #[cgp_impl(new DeserializeAndAllocate)]
 #[uses(CanAlloc<'a, Value>, CanDeserializeValue<'de, Value>)]
 impl<'de, 'a, Value> ValueDeserializer<'de, &'a Value> {

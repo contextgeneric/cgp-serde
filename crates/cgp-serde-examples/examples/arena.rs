@@ -1,4 +1,7 @@
 use cgp::core::error::{ErrorRaiserComponent, ErrorTypeProviderComponent};
+use cgp::core::field::impls::UseField;
+use cgp::core::field::types::Life;
+use cgp::extra::handler::TryComputerComponent;
 use cgp::prelude::*;
 use cgp_error_anyhow::{RaiseAnyhowError, UseAnyhowError};
 use cgp_serde::components::ValueDeserializerComponent;
@@ -32,6 +35,11 @@ pub struct App<'a> {
 
 delegate_components! {
     <'a> App<'a> {
+        open {
+            ValueDeserializerComponent,
+            TryComputerComponent,
+        };
+
         ErrorTypeProviderComponent:
             UseAnyhowError,
         ErrorRaiserComponent:
@@ -40,27 +48,26 @@ delegate_components! {
             UseField<Symbol!("arena")>,
         AllocatorComponent:
             AllocateWithArena,
-        ValueDeserializerComponent:
-            UseDelegate<new DeserializeComponents {
-                u64: UseSerde,
-                [
-                    Coord,
-                    <'a> Payload<'a>,
-                ]:
-                    DeserializeRecordFields,
-                <'a> &'a Coord:
-                    DeserializeAndAllocate,
-                <'a> Vec<&'a Coord>:
-                    DeserializeExtend,
 
-            }>,
-        TryComputerComponent:
-            UseDelegate<new JsonEncodingComponents {
-                SerializeJson:
-                    SerializeToJsonString,
-                <T> DeserializeJson<T>:
-                    DeserializeFromJsonString
-            }>,
+        @ValueDeserializerComponent.u64: UseSerde,
+
+        @ValueDeserializerComponent.[
+            Coord,
+            <'b> Payload<'b>,
+        ]:
+            DeserializeRecordFields,
+
+        @ValueDeserializerComponent.<'b> &'b Coord:
+            DeserializeAndAllocate,
+
+        @ValueDeserializerComponent.<'b> Vec<&'b Coord>:
+            DeserializeExtend,
+
+        @TryComputerComponent.SerializeJson:
+            SerializeToJsonString,
+
+        @TryComputerComponent.<T> DeserializeJson<T>:
+            DeserializeFromJsonString,
     }
 }
 
@@ -85,9 +92,7 @@ check_components! {
     }
 }
 
-#[test]
-fn test_deserialize_with_arena() {
-    let serialized = r#"
+const SERIALIZED: &str = r#"
 {
     "id": 8,
     "coords": [
@@ -97,10 +102,21 @@ fn test_deserialize_with_arena() {
 }
 "#;
 
+fn main() {
     let arena = Arena::new();
     let app = App { arena: &arena };
 
-    let deserialized: Payload<'_> = app.deserialize_json_string(&serialized).unwrap();
+    let deserialized: Payload<'_> = app.deserialize_json_string(SERIALIZED).unwrap();
+
+    println!("deserialized: {deserialized:?}");
+}
+
+#[test]
+fn test_deserialize_with_arena() {
+    let arena = Arena::new();
+    let app = App { arena: &arena };
+
+    let deserialized: Payload<'_> = app.deserialize_json_string(SERIALIZED).unwrap();
 
     assert_eq!(
         deserialized,

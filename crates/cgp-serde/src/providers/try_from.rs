@@ -9,6 +9,9 @@ use crate::components::{
     ValueSerializer, ValueSerializerComponent,
 };
 
+/// Encodes a value by converting it into `Target` with `TryInto`, and decodes one by converting from
+/// `Target` instead, reporting a failed conversion as a Serde error. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/try_serialize_from).
 pub struct TrySerializeFrom<Target>(pub PhantomData<Target>);
 
 #[cgp_impl(TrySerializeFrom<Target>)]

@@ -4,6 +4,8 @@ use cgp::prelude::*;
 
 use crate::components::{CanSerializeValue, ValueSerializer, ValueSerializerComponent};
 
+/// Serializes a smart pointer or reference as the value it points to. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/serialize_deref).
 #[cgp_impl(new SerializeDeref)]
 #[uses(CanSerializeValue<Value::Target>)]
 impl<Value> ValueSerializer<Value>

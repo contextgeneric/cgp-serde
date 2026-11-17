@@ -5,6 +5,8 @@ use crate::components::{
     ValueDeserializer, ValueDeserializerComponent, ValueSerializer, ValueSerializerComponent,
 };
 
+/// Encodes a value through its own Serde `Serialize` or `Deserialize` impl. See
+/// [the reference page](https://contextgeneric.dev/docs/projects/cgp-serde/reference/providers/use_serde).
 pub struct UseSerde;
 
 #[cgp_impl(UseSerde)]

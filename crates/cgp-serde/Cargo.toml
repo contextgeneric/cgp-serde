@@ -1,14 +1,19 @@
 [package]
 name         = "cgp-serde"
-version      =  "0.2.0"
+version      =  "0.3.0-prerelease"
 edition      = { workspace = true }
 license      = { workspace = true }
 repository   = { workspace = true }
+homepage     = { workspace = true }
+categories   = { workspace = true }
 authors      = { workspace = true }
 rust-version = { workspace = true }
 keywords     = { workspace = true }
-description  = "CGP-enabled serde implementation"
+description  = "Serde's Serialize and Deserialize as Context-Generic Programming components, chosen per context"
 
 [dependencies]
 cgp     = { workspace = true }
 serde   = { workspace = true }
+
+[dev-dependencies]
+serde_json  = { workspace = true }

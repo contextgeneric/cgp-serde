@@ -10,6 +10,9 @@ mod record;
 mod serde;
 mod string;
 mod try_from;
+mod unit;
+mod variant;
+mod variant_fields;
 
 pub use bytes::*;
 pub use default::*;
@@ -23,3 +26,6 @@ pub use record::*;
 pub use serde::*;
 pub use string::*;
 pub use try_from::*;
+pub use unit::*;
+pub use variant::*;
+pub use variant_fields::*;

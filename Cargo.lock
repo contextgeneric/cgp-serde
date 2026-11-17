@@ -19,9 +19,9 @@ dependencies = [
 
 [[package]]
 name = "anyhow"
-version = "1.0.99"
+version = "1.0.104"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0674a1ddeecb70197781e945de4b3b8ffb61fa939a5597bcf48503737663100"
+checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
 name = "autocfg"
@@ -34,6 +34,15 @@ name = "base64"
 version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
+
+[[package]]
+name = "bitflags"
+version = "2.9.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2261d10cca569e4643e526d8dc2e62e433cc8aba21ab764233731f8d369bf394"
+dependencies = [
+ "serde",
+]
 
 [[package]]
 name = "bumpalo"
@@ -58,9 +67,9 @@ checksum = "2fd1289c04a9ea8cb22300a459a72a385d7c73d3259e2ed7dcb2af674838cfa9"
 
 [[package]]
 name = "cgp"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2a2d437a85e5fff058b478d3ebc21e4eef9732caeea448738e73afa116c1fc30"
+checksum = "11a1e522d5703f91b93bed28ea7f32e8fc9cd368009ec79d479d8831057bf486"
 dependencies = [
  "cgp-core",
  "cgp-extra",
@@ -68,28 +77,56 @@ dependencies = [
 
 [[package]]
 name = "cgp-async-macro"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03ac81c0b822dfe371bb0ff80206a21170860bbd514fcac0daba962ba34e2e35"
+checksum = "a0a558018254879bd258fc792230e02467ce6334bb9bab4da864c607ed8f9b10"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.106",
 ]
 
 [[package]]
-name = "cgp-component"
-version = "0.7.0"
+name = "cgp-base"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "39735cd93546a0b4f7183a55172b709c0df893844b41a7117e08583a9da83127"
+checksum = "5e5cf7328bee1840746c07f9c030bd68275d4f6ec40b814a4d261ccfa34ac339"
+dependencies = [
+ "cgp-base-types",
+ "cgp-component",
+ "cgp-macro",
+]
+
+[[package]]
+name = "cgp-base-extra"
+version = "0.8.0-prerelease"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cf8d106c6b531a668525417b4872a8857bde536fd995dec3a8528cefd42112a0"
+dependencies = [
+ "cgp-base",
+ "cgp-type",
+]
+
+[[package]]
+name = "cgp-base-types"
+version = "0.8.0-prerelease"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "32e78e57e7979b594b60060b3c782523bc7a79375530e7208d4a86e071d2a52a"
+
+[[package]]
+name = "cgp-component"
+version = "0.8.0-prerelease"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c072c19f4b33b5a022182d01453560c7d85ec022584cae79216d3d71d466f222"
 
 [[package]]
 name = "cgp-core"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a0ce263d3cbe6b7048c47dcb99f40852e3c8f5639b9e5dd257889868c902a4c"
+checksum = "cbc72c412587258a9ff4bef94a56e948b4797e6b5727034974eb42e0a037b758"
 dependencies = [
  "cgp-async-macro",
+ "cgp-base",
  "cgp-component",
  "cgp-error",
  "cgp-field",
@@ -99,9 +136,9 @@ dependencies = [
 
 [[package]]
 name = "cgp-dispatch"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d39760b78371f2c1c497961b00e8dce8c1c8f16edff8fea5e0433e9ef9d55ffa"
+checksum = "5e0de36fc324e6d92f3faf58c82c904406287dff24bd91f8e437fcdef7a73a99"
 dependencies = [
  "cgp-core",
  "cgp-handler",
@@ -110,20 +147,21 @@ dependencies = [
 
 [[package]]
 name = "cgp-error"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24d3502be41951b84e3ce40d010cc6ae6bbf24870e46037c459870cccdeffb84"
+checksum = "111151912d78e0a4b3ec0ec490649f594fa30460ca5d49f0e1a92b295c4f744f"
 dependencies = [
- "cgp-component",
+ "cgp-base-extra",
+ "cgp-field",
  "cgp-macro",
  "cgp-type",
 ]
 
 [[package]]
 name = "cgp-error-anyhow"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "627349f2e10a8bd4c2b777ce93fca00cfbfd27ad15b3a186964037dc42634e0e"
+checksum = "096dc38a3794991b94a8c43803b002d54d92533bf3ffd2cc727799521e11bb94"
 dependencies = [
  "anyhow",
  "cgp-core",
@@ -131,108 +169,134 @@ dependencies = [
 
 [[package]]
 name = "cgp-error-extra"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0b8b5cbf6677a7fb237fd44245222c47f4ee63e7138d84813724a31f0050962"
+checksum = "23787fb8544c5703a200ee1dfba9028ed31c9b4401c466301baa4023e643545c"
 dependencies = [
  "cgp-core",
 ]
 
 [[package]]
 name = "cgp-extra"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc0a18aaebc9a6afefe95d6e3e07894816c2708bd6722c419c974884aa0a30ec"
+checksum = "2ec0b63451a9cda55f20d6609d0bb11f27c404eb0fa1490bca61edda2fffd9e3"
 dependencies = [
  "cgp-core",
  "cgp-dispatch",
  "cgp-error-extra",
- "cgp-extra-macro",
  "cgp-field-extra",
  "cgp-handler",
+ "cgp-macro-extra",
  "cgp-monad",
  "cgp-run",
  "cgp-runtime",
 ]
 
 [[package]]
-name = "cgp-extra-macro"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83953618e5a9d39f0fdae7d25799ab5c254fa06531441c2c1a5df6535a740a8c"
-dependencies = [
- "cgp-extra-macro-lib",
- "syn",
-]
-
-[[package]]
-name = "cgp-extra-macro-lib"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1800ccf6bd3e3074831b644fc4cdc831d6271d84e68fbd217711c3dfbd85fe42"
-dependencies = [
- "cgp-macro-lib",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
 name = "cgp-field"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2412983a507e370aa5d72b8091f9576cf95e58be06bc3233cd91eeb6b6edead"
+checksum = "1b00c9c59793b41ffd708e47bc3502b2acf937e7726479ee4c31f100f344141a"
 dependencies = [
+ "cgp-base-types",
  "cgp-component",
  "cgp-type",
 ]
 
 [[package]]
 name = "cgp-field-extra"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9e6636e484c14fed64533b5f726ca6186493f53218d3975de1437bc76ec72091"
+checksum = "4dba7b001068522891e57fd888a4445f7a87f21ff59035a6d3ce186afc53bc22"
 dependencies = [
  "cgp-field",
 ]
 
 [[package]]
 name = "cgp-handler"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "00a2a8574da65309b8b19ba1268953f7d825748b27a921b4d00baa78b2838a97"
+checksum = "75ba79f0a6d452c8d82701f0610929968b24106f93af0fa7220185d8e5205f94"
 dependencies = [
  "cgp-core",
 ]
 
 [[package]]
 name = "cgp-macro"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e4f6983bcbc2f08555682f093a56787a4b0b02c63871efc923a0a4f72cda4d68"
+checksum = "1bf9e6e5b7ea90314383d4597b52e01c46608a06d6198c4acb86348965365508"
 dependencies = [
  "cgp-macro-lib",
- "syn",
+ "syn 2.0.106",
+]
+
+[[package]]
+name = "cgp-macro-core"
+version = "0.8.0-prerelease"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "06f915f1e8ef6ca96d9bec879438fb52591f994c73fdcf312a7414d378a521c0"
+dependencies = [
+ "itertools",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.106",
+]
+
+[[package]]
+name = "cgp-macro-extra"
+version = "0.8.0-prerelease"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e4bd0a65d14ce570db728b5f22e9572d85f677b4294585ccbb4753789a584a6c"
+dependencies = [
+ "cgp-macro-extra-lib",
+ "syn 2.0.106",
+]
+
+[[package]]
+name = "cgp-macro-extra-core"
+version = "0.8.0-prerelease"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a4f3fe84088755d42efa9b70d193329360f0f394c2634a608a733c2ffd0d6d2b"
+dependencies = [
+ "cgp-macro-core",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.106",
+]
+
+[[package]]
+name = "cgp-macro-extra-lib"
+version = "0.8.0-prerelease"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b8a1129e1ae8ddc4e7d8d3f3e9ec0b05824387906411f257df091f40172e81cb"
+dependencies = [
+ "cgp-macro-core",
+ "cgp-macro-extra-core",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.106",
 ]
 
 [[package]]
 name = "cgp-macro-lib"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "12ec3f9ec29691903cdbf1e82ecc4bb29ab108b306a9826b4d85eaecb6d9d508"
+checksum = "373faea91284372b79f2c6a6c514877b66f81479ca3875a4986fb35c38ab59b0"
 dependencies = [
+ "cgp-macro-core",
  "itertools",
- "prettyplease",
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.106",
 ]
 
 [[package]]
 name = "cgp-monad"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c313da265af036cefe7307f466c7ae9b26377c4d482172da9d8a1217859482f6"
+checksum = "1d5491883b184409e9e29b3605ef4729d151abbf6f369abe95621585e8f6dc39"
 dependencies = [
  "cgp-core",
  "cgp-handler",
@@ -240,33 +304,34 @@ dependencies = [
 
 [[package]]
 name = "cgp-run"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b732f6592e4051aa9d43e5ac226c28bb30693c2b92ac1ba7c2a55aa1d757d539"
+checksum = "270c86da8a3306720eb0492a77d3ad42e9b924a71927d5baa74b28b430f792e0"
 dependencies = [
  "cgp-core",
 ]
 
 [[package]]
 name = "cgp-runtime"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "45ac97c31acce9ab7d10146c2bd08dbf289c6c533eab1400714dcc9f6c0e85f5"
+checksum = "6c31d1735b4cd82a7c4f1f7bda95ea5f2ba992c0693857e837232c8b362d476d"
 dependencies = [
  "cgp-core",
 ]
 
 [[package]]
 name = "cgp-serde"
-version = "0.2.0"
+version = "0.3.0-prerelease"
 dependencies = [
  "cgp",
  "serde",
+ "serde_json",
 ]
 
 [[package]]
 name = "cgp-serde-alloc"
-version = "0.2.0"
+version = "0.3.0-prerelease"
 dependencies = [
  "cgp",
  "cgp-serde",
@@ -274,8 +339,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "cgp-serde-examples"
+version = "0.3.0-prerelease"
+dependencies = [
+ "cgp",
+ "cgp-error-anyhow",
+ "cgp-serde",
+ "cgp-serde-alloc",
+ "cgp-serde-extra",
+ "cgp-serde-json",
+ "cgp-serde-typed-arena",
+ "chrono",
+ "serde",
+ "serde_json",
+ "typed-arena",
+]
+
+[[package]]
 name = "cgp-serde-extra"
-version = "0.2.0"
+version = "0.3.0-prerelease"
 dependencies = [
  "base64",
  "cgp",
@@ -287,7 +369,7 @@ dependencies = [
 
 [[package]]
 name = "cgp-serde-json"
-version = "0.2.0"
+version = "0.3.0-prerelease"
 dependencies = [
  "cgp",
  "cgp-serde",
@@ -297,26 +379,21 @@ dependencies = [
 
 [[package]]
 name = "cgp-serde-tests"
-version = "0.2.0"
+version = "0.3.0-prerelease"
 dependencies = [
- "base64",
  "cgp",
- "cgp-error-anyhow",
  "cgp-serde",
- "cgp-serde-alloc",
  "cgp-serde-extra",
- "cgp-serde-json",
- "cgp-serde-typed-arena",
- "chrono",
- "hex",
+ "postcard",
+ "ron",
  "serde",
  "serde_json",
- "typed-arena",
+ "trybuild",
 ]
 
 [[package]]
 name = "cgp-serde-typed-arena"
-version = "0.2.0"
+version = "0.3.0-prerelease"
 dependencies = [
  "cgp",
  "cgp-serde",
@@ -327,10 +404,11 @@ dependencies = [
 
 [[package]]
 name = "cgp-type"
-version = "0.7.0"
+version = "0.8.0-prerelease"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e67030447046e58fd34a8c10d6471eaff67b440ca441cbb01e29211ba29e66da"
+checksum = "c77b0f7c18d5de701c558793d2ca6d1dea8f6289618e795df073d3237aef70ed"
 dependencies = [
+ "cgp-base",
  "cgp-component",
  "cgp-macro",
 ]
@@ -346,7 +424,16 @@ dependencies = [
  "js-sys",
  "num-traits",
  "wasm-bindgen",
- "windows-link",
+ "windows-link 0.1.3",
+]
+
+[[package]]
+name = "cobs"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0fa961b519f0b462e3a3b4a34b64d119eeaca1d59af726fe450bbba07a9fc0a1"
+dependencies = [
+ "thiserror",
 ]
 
 [[package]]
@@ -360,6 +447,36 @@ name = "either"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
+
+[[package]]
+name = "embedded-io"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ef1a6892d9eef45c8fa6b9e0086428a2cca8491aca8f787c534a3d6d0bcb3ced"
+
+[[package]]
+name = "embedded-io"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "edd0f118536f44f5ccd48bcb8b111bdc3de888b58c74639dfb034a357d0f206d"
+
+[[package]]
+name = "equivalent"
+version = "1.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
+
+[[package]]
+name = "glob"
+version = "0.3.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e4eba85ea1d0a966a983acd07deee566e67395d2d96b6fb39e62b5a833f1eb0b"
+
+[[package]]
+name = "hashbrown"
+version = "0.17.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
 
 [[package]]
 name = "hex"
@@ -389,6 +506,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f31827a206f56af32e590ba56d5d2d085f558508192593743f16b2306495269f"
 dependencies = [
  "cc",
+]
+
+[[package]]
+name = "indexmap"
+version = "2.14.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cc4e190f5d26ca7051642629da2c52fc03bde85a03197c99408dcd291734c855"
+dependencies = [
+ "equivalent",
+ "hashbrown",
 ]
 
 [[package]]
@@ -450,13 +577,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d"
 
 [[package]]
-name = "prettyplease"
-version = "0.2.36"
+name = "postcard"
+version = "1.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ff24dfcda44452b9816fff4cd4227e1bb73ff5a2f1bc1105aa92fb8565ce44d2"
+checksum = "6764c3b5dd454e283a30e6dfe78e9b31096d9e32036b5d1eaac7a6119ccb9a24"
 dependencies = [
- "proc-macro2",
- "syn",
+ "cobs",
+ "embedded-io 0.4.0",
+ "embedded-io 0.6.1",
+ "serde",
 ]
 
 [[package]]
@@ -478,6 +607,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "ron"
+version = "0.12.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "81116b9531d61eabc41aeb228e4b6b2435bcca3233b98cf3b3077d4e6e9debb3"
+dependencies = [
+ "bitflags",
+ "once_cell",
+ "serde",
+ "serde_derive",
+ "typeid",
+ "unicode-ident",
+]
+
+[[package]]
 name = "rustversion"
 version = "1.0.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -491,22 +634,32 @@ checksum = "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f"
 
 [[package]]
 name = "serde"
-version = "1.0.219"
+version = "1.0.229"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5f0e2c6ed6606019b4e29e69dbaba95b11854410e5347d525002456dbbb786b6"
+checksum = "4148590afebada386688f18773da617792bf2ef03ffc1e4cbd2b1d45b023e0ba"
+dependencies = [
+ "serde_core",
+ "serde_derive",
+]
+
+[[package]]
+name = "serde_core"
+version = "1.0.229"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48"
 dependencies = [
  "serde_derive",
 ]
 
 [[package]]
 name = "serde_derive"
-version = "1.0.219"
+version = "1.0.229"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5b0276cf7f2c73365f7157c8123c21cd9a50fbbd844757af28ca1f5925fc2a00"
+checksum = "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 3.0.6",
 ]
 
 [[package]]
@@ -519,6 +672,15 @@ dependencies = [
  "memchr",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "serde_spanned"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6662b5879511e06e8999a8a235d848113e942c9124f211511b16466ee2995f26"
+dependencies = [
+ "serde_core",
 ]
 
 [[package]]
@@ -539,10 +701,116 @@ dependencies = [
 ]
 
 [[package]]
+name = "syn"
+version = "3.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8593e8e72159ed2257d083c7a454a85cbf854f37a0966d8d483aff8c8a3ebcee"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "unicode-ident",
+]
+
+[[package]]
+name = "target-tuple"
+version = "1.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "876fef147edbcbddc8ac5cbbba92c7b86519e314e86638596c09673b2ed01e7f"
+
+[[package]]
+name = "termcolor"
+version = "1.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "06794f8f6c5c898b3275aebefa6b8a1cb24cd2c6c79397ab15774837a0bc5755"
+dependencies = [
+ "winapi-util",
+]
+
+[[package]]
+name = "thiserror"
+version = "2.0.21"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "09e52cb86a36cede5cb101bf8908837b3e4c6e5e59fe7fd85c23fb56200d189e"
+dependencies = [
+ "thiserror-impl",
+]
+
+[[package]]
+name = "thiserror-impl"
+version = "2.0.21"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fe5197923287db20a58125f0bc85c062f7f2c892de97b18c356f9efb14b28524"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 3.0.6",
+]
+
+[[package]]
+name = "toml"
+version = "1.1.6+spec-1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "920602543f0911ab71da12c50d59701da54c196d1a2bf5cb4b75667f137a406a"
+dependencies = [
+ "indexmap",
+ "serde_core",
+ "serde_spanned",
+ "toml_datetime",
+ "toml_parser",
+ "toml_writer",
+ "winnow",
+]
+
+[[package]]
+name = "toml_datetime"
+version = "1.1.1+spec-1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3165f65f62e28e0115a00b2ebdd37eb6f3b641855f9d636d3cd4103767159ad7"
+dependencies = [
+ "serde_core",
+]
+
+[[package]]
+name = "toml_parser"
+version = "1.1.3+spec-1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d38ac1cf9b95face32296c0a3ede1fdc270627c9d9c02a7274dd6d960dc4d56"
+dependencies = [
+ "winnow",
+]
+
+[[package]]
+name = "toml_writer"
+version = "1.1.2+spec-1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7d56353a2a665ad0f41a421187180aab746c8c325620617ad883a99a1cbe66d2"
+
+[[package]]
+name = "trybuild"
+version = "1.0.121"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c0cabaa10be1917331a313866bd94526343e03c77bcf69144b62b072ad35d47c"
+dependencies = [
+ "glob",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "target-tuple",
+ "termcolor",
+ "toml",
+]
+
+[[package]]
 name = "typed-arena"
 version = "2.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6af6ae20167a9ece4bcb41af5b80f8a1f1df981f6391189ce00fd257af04126a"
+
+[[package]]
+name = "typeid"
+version = "1.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc7d623258602320d5c55d1bc22793b57daff0ec7efc270ea7d55ce1d5f5471c"
 
 [[package]]
 name = "unicode-ident"
@@ -572,7 +840,7 @@ dependencies = [
  "log",
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.106",
  "wasm-bindgen-shared",
 ]
 
@@ -594,7 +862,7 @@ checksum = "8ae87ea40c9f689fc23f209965b6fb8a99ad69aeeb0231408be24920604395de"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.106",
  "wasm-bindgen-backend",
  "wasm-bindgen-shared",
 ]
@@ -609,6 +877,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "winapi-util"
+version = "0.1.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
+dependencies = [
+ "windows-sys",
+]
+
+[[package]]
 name = "windows-core"
 version = "0.61.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -616,7 +893,7 @@ checksum = "c0fdd3ddb90610c7638aa2b3a3ab2904fb9e5cdbecc643ddb3647212781c4ae3"
 dependencies = [
  "windows-implement",
  "windows-interface",
- "windows-link",
+ "windows-link 0.1.3",
  "windows-result",
  "windows-strings",
 ]
@@ -629,7 +906,7 @@ checksum = "a47fddd13af08290e67f4acabf4b459f647552718f683a7b415d290ac744a836"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.106",
 ]
 
 [[package]]
@@ -640,7 +917,7 @@ checksum = "bd9211b69f8dcdfa817bfd14bf1c97c9188afa36f4750130fcdf3f400eca9fa8"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.106",
 ]
 
 [[package]]
@@ -650,12 +927,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5e6ad25900d524eaabdbbb96d20b4311e1e7ae1699af4fb28c17ae66c80d798a"
 
 [[package]]
+name = "windows-link"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f0805222e57f7521d6a62e36fa9163bc891acd422f971defe97d64e70d0a4fe5"
+
+[[package]]
 name = "windows-result"
 version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "56f42bd332cc6c8eac5af113fc0c1fd6a8fd2aa08a0119358686e5160d0586c6"
 dependencies = [
- "windows-link",
+ "windows-link 0.1.3",
 ]
 
 [[package]]
@@ -664,5 +947,20 @@ version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "56e6c93f3a0c3b36176cb1327a4958a0353d5d166c2a35cb268ace15e91d3b57"
 dependencies = [
- "windows-link",
+ "windows-link 0.1.3",
 ]
+
+[[package]]
+name = "windows-sys"
+version = "0.61.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ae137229bcbd6cdf0f7b80a31df61766145077ddf49416a728b02cb3921ff3fc"
+dependencies = [
+ "windows-link 0.2.1",
+]
+
+[[package]]
+name = "winnow"
+version = "1.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23b97319f7b8343df12cc98938e5c3eb436064524c8d2b4e30a1d3a36eecdf81"

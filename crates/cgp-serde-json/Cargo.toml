@@ -1,13 +1,15 @@
 [package]
 name         = "cgp-serde-json"
-version      =  "0.2.0"
+version      =  "0.3.0-prerelease"
 edition      = { workspace = true }
 license      = { workspace = true }
 repository   = { workspace = true }
+homepage     = { workspace = true }
+categories   = { workspace = true }
 authors      = { workspace = true }
 rust-version = { workspace = true }
 keywords     = { workspace = true }
-description  = "CGP wrapper around serde_json"
+description  = "JSON serialization and deserialization through serde_json for cgp-serde contexts"
 
 [dependencies]
 cgp         = { workspace = true }
