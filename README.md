@@ -66,9 +66,7 @@ new code; this crate still uses the generated table.
 
 ## Building
 
-The workspace builds against the `cgp` repository's `main` branch through its `[patch.crates-io]`
-section, because it tracks unreleased CGP code. To build against a local `cgp` checkout, switch those
-entries to the commented-out paths into `../cgp`.
+These are the commands CI runs, on the stable toolchain `rust-toolchain.toml` pins:
 
 ```sh
 cargo build --workspace

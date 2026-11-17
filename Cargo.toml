@@ -20,11 +20,11 @@ repository      = "https://github.com/contextgeneric/cgp-serde"
 homepage        = "https://contextgeneric.dev/docs/projects/cgp-serde/"
 categories      = ["encoding", "rust-patterns"]
 authors         = ["Soares Chen <soares.chen@maybevoid.com>"]
-keywords        = ["cgp"]
+keywords        = ["cgp", "serde", "serialization", "coherence"]
 
 [workspace.dependencies]
-cgp                 = { version = "0.8.0-alpha" }
-cgp-error-anyhow    = { version = "0.8.0-alpha" }
+cgp                 = { version = "0.8.0-prerelease" }
+cgp-error-anyhow    = { version = "0.8.0-prerelease" }
 serde               = { version = "1.0.219" }
 serde_json          = { version = "1.0.143" }
 hex                 = { version = "0.4.3" }
@@ -35,14 +35,8 @@ ron                 = { version = "0.12.2" }
 postcard            = { version = "1.1.3", default-features = false, features = ["alloc"] }
 trybuild            = { version = "1.0.121" }
 
-cgp-serde               = { version = "0.2.0", path = "./crates/cgp-serde" }
-cgp-serde-extra         = { version = "0.2.0", path = "./crates/cgp-serde-extra" }
-cgp-serde-json          = { version = "0.2.0", path = "./crates/cgp-serde-json" }
-cgp-serde-alloc         = { version = "0.2.0", path = "./crates/cgp-serde-alloc" }
-cgp-serde-typed-arena   = { version = "0.2.0", path = "./crates/cgp-serde-typed-arena" }
-
-[patch.crates-io]
-# cgp                           = { path = "../cgp/crates/main/cgp" }
-# cgp-error-anyhow              = { path = "../cgp/crates/standalone/error/cgp-error-anyhow" }
-cgp                 = { git = "https://github.com/contextgeneric/cgp.git", branch = "main" }
-cgp-error-anyhow    = { git = "https://github.com/contextgeneric/cgp.git", branch = "main" }
+cgp-serde               = { version = "0.3.0-prerelease", path = "./crates/cgp-serde" }
+cgp-serde-extra         = { version = "0.3.0-prerelease", path = "./crates/cgp-serde-extra" }
+cgp-serde-json          = { version = "0.3.0-prerelease", path = "./crates/cgp-serde-json" }
+cgp-serde-alloc         = { version = "0.3.0-prerelease", path = "./crates/cgp-serde-alloc" }
+cgp-serde-typed-arena   = { version = "0.3.0-prerelease", path = "./crates/cgp-serde-typed-arena" }

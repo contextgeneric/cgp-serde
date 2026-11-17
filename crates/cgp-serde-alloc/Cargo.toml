@@ -1,6 +1,6 @@
 [package]
 name         = "cgp-serde-alloc"
-version      =  "0.2.0"
+version      =  "0.3.0-prerelease"
 edition      = { workspace = true }
 license      = { workspace = true }
 repository   = { workspace = true }
@@ -9,7 +9,7 @@ categories   = { workspace = true }
 authors      = { workspace = true }
 rust-version = { workspace = true }
 keywords     = { workspace = true }
-description  = "Arena-based deserialization using cgp-serde"
+description  = "The allocation component that lets cgp-serde deserialize borrowed values"
 
 [dependencies]
 cgp         = { workspace = true }
